@@ -30,9 +30,13 @@ public class CreditsAndStats extends JPanel
 			super.paintComponent(g);
 			g.setFont(new Font("Sans Serif", Font.PLAIN, 20));
 			g.drawString("Credits", 25, 40);
-			g.drawString("Game Creators:", 25, 70);
-			g.drawString("Allen Li", 25, 95);
-			g.drawString("Kirtan Shah", 25, 110);
+			g.drawString("Game Creators:", 25, 80);
+			g.drawString("Allen Li", 25, 110);
+			g.drawString("Kirtan Shah", 25, 130);
+			g.drawString("Advisor:", 25, 175);
+			g.drawString("Mr. Lorden", 25, 205);
+			g.drawString("Amazing teacher:", 25, 250);
+			g.drawString("Mr. Mueller", 25, 280);
 		}
 	}
 	
@@ -47,6 +51,7 @@ public class CreditsAndStats extends JPanel
 		{
 			super.paintComponent(g);
 		}
+		
 	}
 }
 
