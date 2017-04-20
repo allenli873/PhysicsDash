@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -27,7 +28,11 @@ public class CreditsAndStats extends JPanel
 		public void paintComponent(Graphics g)
 		{
 			super.paintComponent(g);
-			g.drawString("hi guise", 50, 50);
+			g.setFont(new Font("Sans Serif", Font.PLAIN, 20));
+			g.drawString("Credits", 25, 40);
+			g.drawString("Game Creators:", 25, 70);
+			g.drawString("Allen Li", 25, 95);
+			g.drawString("Kirtan Shah", 25, 110);
 		}
 	}
 	
