@@ -18,8 +18,9 @@ public class PhysicsDash extends JFrame
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		//makes class objects
-		credits = new CreditsAndStats();
+		credits = new CreditsAndStats(this);
 		levelSelect = new LevelSelector();
+		instructions = new Instructions();
 		home = new HomeScreen(this);
 		//sets the content pane
 		setContentPane(home);

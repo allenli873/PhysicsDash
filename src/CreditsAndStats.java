@@ -8,11 +8,16 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
+//class header
 public class CreditsAndStats extends JPanel implements ActionListener
 {
-	public CreditsAndStats()
+	
+	private PhysicsDash win;
+	
+	//constructor
+	public CreditsAndStats(PhysicsDash p)
 	{
+		win = p;
 		setSize(960, 540);
 		setBackground(new Color(255, 100, 0));
 		setLayout(new FlowLayout(FlowLayout.LEFT, 50, 40));
@@ -22,13 +27,10 @@ public class CreditsAndStats extends JPanel implements ActionListener
 		back.addActionListener(this);
 		add(back);
 	}
-	
-	@Override
+	//back button
 	public void actionPerformed(ActionEvent e) {
-		PhysicsDash p = new PhysicsDash();
-		p.setContentPane(p.home);
+		win.setContentPane(win.home);
 	}
-	
 	class Credits extends JPanel
 	{
 		public Credits()
@@ -46,7 +48,7 @@ public class CreditsAndStats extends JPanel implements ActionListener
 			g.drawString("Allen Li", 25, 110);
 			g.drawString("Kirtan Shah", 25, 130);
 			g.drawString("Advisor:", 25, 175);
-			g.drawString("Mr. Lorden", 25, 205);
+			g.drawString("Mr. Lordan", 25, 205);
 			g.drawString("Amazing teacher:", 25, 250);
 			g.drawString("Mr. Mueller", 25, 280);
 		}

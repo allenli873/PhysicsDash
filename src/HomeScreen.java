@@ -42,6 +42,7 @@ public class HomeScreen extends JPanel implements ActionListener {
 			app.setContentPane(app.levelSelect);
 		}
 		else if(text.equals("Instructions")) {
+			System.out.println("hi");
 			app.setContentPane(app.instructions);
 		}
 		else if(text.equals("Credits")) {
