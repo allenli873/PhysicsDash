@@ -1,21 +1,28 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 //file to be run
-public class PhysicsDash
+public class PhysicsDash extends JFrame
 {
+	//field variables
 	public static final int WIDTH = 960;
 	public static final int HEIGHT = 540;
-	
-	public JPanel credits, levelSelect, game, instructions;
+	public static int level = Integer.MIN_VALUE;
+	//the panels of our game
+	public JPanel home, credits, levelSelect, game, instructions;
+	//constructor
 	public PhysicsDash()
 	{
-		JFrame frame = new JFrame();
-		frame.setSize(WIDTH, HEIGHT);
-		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+		//sets size to 960x540
+		setSize(WIDTH, HEIGHT);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
+		//makes class objects
 		credits = new CreditsAndStats();
 		levelSelect = new LevelSelector();
-		frame.setContentPane(credits);
+		home = new HomeScreen(this);
+		//sets the content pane
+		setContentPane(home);
 	}
 	public static void main(String[] args)
 	{

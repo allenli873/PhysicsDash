@@ -3,18 +3,30 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class CreditsAndStats extends JPanel
+public class CreditsAndStats extends JPanel implements ActionListener
 {
 	public CreditsAndStats()
 	{
 		setSize(960, 540);
 		setBackground(new Color(255, 100, 0));
-		setLayout(new FlowLayout(FlowLayout.CENTER, 50, 50));
+		setLayout(new FlowLayout(FlowLayout.LEFT, 50, 40));
+		JButton back = new JButton("Back");
 		add(new Credits());
 		add(new Statistics());
+		back.addActionListener(this);
+		add(back);
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		PhysicsDash p = new PhysicsDash();
+		p.setContentPane(p.home);
 	}
 	
 	class Credits extends JPanel
