@@ -14,7 +14,7 @@ public class HomeScreen extends JPanel implements ActionListener {
 		//initialize PhysicsDash obj
 		this.app = app;
 		
-		setSize(PhysicsDash.WIDTH, PhysicsDash.HEIGHT);
+		setSize(app.WIDTH, app.HEIGHT);
 		setLayout(null);
 		
 		int width = 400;
@@ -22,7 +22,7 @@ public class HomeScreen extends JPanel implements ActionListener {
 		//container panel
 		JPanel container = new JPanel();
 		container.setLayout(new GridLayout(0, 1, 0, 30));
-		container.setBounds((PhysicsDash.WIDTH - width)/2, 60 + (PhysicsDash.HEIGHT - height)/2, width, height);
+		container.setBounds((app.WIDTH - width)/2, 60 + (app.HEIGHT - height)/2, width, height);
 		//selecting the different options for panels on home screen
 		play = new JButton("Play");
 		instructions = new JButton("Instructions");
