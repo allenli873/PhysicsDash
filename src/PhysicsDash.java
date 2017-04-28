@@ -1,13 +1,22 @@
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.awt.event.*;
+import javax.swing.Timer;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 //file to be run
-public class PhysicsDash extends JFrame
+public class PhysicsDash extends JFrame implements ActionListener
 {
 	//field variables
-	public static final int WIDTH = 960;
-	public static final int HEIGHT = 540;
-	public static int level = Integer.MIN_VALUE;
+	protected static final int WIDTH = 960;
+	protected static final int HEIGHT = 540;
+	protected static int level;
+	protected static int maxLevel;
+	protected static String charName;
+	protected static Image character;
 	//the panels of our game
 	public JPanel home, credits, levelSelect, game, instructions;
 	//constructor
@@ -17,16 +26,40 @@ public class PhysicsDash extends JFrame
 		setSize(WIDTH, HEIGHT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
+		//initialize things
+		level = Integer.MIN_VALUE;
+		maxLevel = 1;
+		charName = "deltVdeltT.png";
+		character = null;
 		//makes class objects
 		credits = new CreditsAndStats(this);
-		levelSelect = new LevelSelector();
+		levelSelect = new LevelSelector(this);
 		instructions = new Instructions();
+		game = new GamePanel(this);
 		home = new HomeScreen(this);
 		//sets the content pane
 		setContentPane(home);
 	}
+	
+	public void getMyImage() {
+		try 
+		{
+			character = ImageIO.read(new File(charName));
+		} 
+		catch(IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		repaint();
+	}
+	
 	public static void main(String[] args)
 	{
 		PhysicsDash p = new PhysicsDash();
+		Timer loop = new Timer(16, p);
+		loop.start();
 	}
 }

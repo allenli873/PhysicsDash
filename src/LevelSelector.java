@@ -6,17 +6,27 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 //the level selector portion
-public class LevelSelector extends JPanel 
+public class LevelSelector extends JPanel implements ActionListener
 {
-	//field variable
-	public static final int LEVELS_WIDTH = 400;
+	//field variables
+	private static final int LEVELS_WIDTH = 400;
+	private PhysicsDash app;
 	//constructor
-	public LevelSelector() 
+	public LevelSelector(PhysicsDash app) 
 	{
-		setSize(PhysicsDash.WIDTH, PhysicsDash.HEIGHT);
+		this.app = app;
+		setSize(app.WIDTH, app.HEIGHT);
 		setBackground(Color.BLUE);
 		setLayout(null);
 		add(new Levels());
+		JButton back = new JButton("Back");
+		add(back);
+		back.addActionListener(this);
+		back.setBounds(50, 475, 150, 40);
+	}
+	public void actionPerformed(ActionEvent e) {
+		app.setContentPane(app.home);
+		
 	}
 	//nested class for the buttons panel
 	class Levels extends JPanel implements ActionListener
@@ -25,13 +35,14 @@ public class LevelSelector extends JPanel
 		{
 			setBackground(Color.BLUE);
 			//sets where the button panel is
-			setBounds((PhysicsDash.WIDTH - LEVELS_WIDTH)/2, (PhysicsDash.HEIGHT - LEVELS_WIDTH)/2, LEVELS_WIDTH, LEVELS_WIDTH);
+			setBounds((app.WIDTH - LEVELS_WIDTH)/2, (app.HEIGHT - LEVELS_WIDTH)/2, LEVELS_WIDTH, LEVELS_WIDTH);
 			//adds in buttons and their action listeners
 			for(int i = 0; i < 9; i++) 
 			{
 				JButton btn = new JButton(Integer.toString(i + 1));
 				btn.addActionListener(this);
 				btn.setBackground(Color.YELLOW);
+				btn.setEnabled(i < app.maxLevel);
 				add(btn);
 			}
 			//sets as a grid layout
@@ -41,8 +52,10 @@ public class LevelSelector extends JPanel
 		public void actionPerformed(ActionEvent e) 
 		{
 			String str = e.getActionCommand();
-			PhysicsDash.level = Integer.parseInt(str);
-			System.out.println(PhysicsDash.level);
+			app.level = Integer.parseInt(str);
+			app.setContentPane(app.game);
+			System.out.println(app.level);
 		}
 	}
+	
 }
