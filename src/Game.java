@@ -38,13 +38,13 @@ public class Game extends JPanel {
 		requestFocusInWindow();
 		
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.translate((int)  (PhysicsDash.WIDTH - player.w)/2 - player.x, 0);
-		
+		g2d.translate((int)  (app.WIDTH - player.w)/2 - player.x, 0);
+//		System.out.println("hi") ;
 		g.setColor(new Color(175, 60, 0));
 		//g.fillRect(0, PhysicsDash.HEIGHT - GROUND_HEIGHT, PhysicsDash.WIDTH, GROUND_HEIGHT);
 		//g.drawImage(ground, 0, PhysicsDash.HEIGHT - GROUND_HEIGHT, PhysicsDash.WIDTH, GROUND_HEIGHT, null);
-		for(int x = -3000; x < PhysicsDash.WIDTH + 3000; x += GROUND_HEIGHT) {
-			g.drawImage(ground, x, PhysicsDash.HEIGHT - GROUND_HEIGHT, GROUND_HEIGHT, GROUND_HEIGHT, null);
+		for(int x = -3000; x < app.WIDTH + 3000; x += GROUND_HEIGHT) {
+			g.drawImage(ground, x, app.HEIGHT - GROUND_HEIGHT, GROUND_HEIGHT, GROUND_HEIGHT, null);
 		}
 		player.draw(g);
 	}

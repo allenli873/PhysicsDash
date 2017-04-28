@@ -1,17 +1,12 @@
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 public class Character implements KeyListener {
 	
-	private float ppm = 150; //ppm is how many pixels represent one meter
+	private final float PPM = 150; //ppm is how many pixels represent one meter
 	
 	private PhysicsDash app;
 	private Image character, ground;
@@ -25,31 +20,27 @@ public class Character implements KeyListener {
 	float grav = 9.8f;
 	
 	public Character(PhysicsDash p) {
-//		left = false;
-//		right = false;
 		app = p;
 		app.getMyImage();
 		character = app.character;
-		w = (int) ppm/2; //dimensions are 1/2m = 1/2ppm pixels
-		h = (int) ppm/2; 
+		w = (int) PPM/2; //dimensions are 1/2m = 1/2ppm pixels
+		h = (int) PPM/2; 
 		x = 0;
 		y = 0;
 	}
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.RED);
-//		System.out.println("Right:" + right);
-//		System.out.println("Left:" + left);
 		
 		if(right)
 			x += 5;
 		if(left)
 			x -= 5;
 		g.drawImage(character, (int) x, (int) y, w, h, null);
-		y += velY * step * ppm;
+		y += velY * step * PPM;
 		velY += grav * step;
-		if(y > PhysicsDash.HEIGHT - Game.GROUND_HEIGHT - h) {
-			y = PhysicsDash.HEIGHT - Game.GROUND_HEIGHT - h;
+		if(y > app.HEIGHT - Game.GROUND_HEIGHT - h) {
+			y = app.HEIGHT - Game.GROUND_HEIGHT - h;
 			jumped = false;
 //			System.out.println(jumped);
 		}

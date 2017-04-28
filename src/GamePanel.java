@@ -1,7 +1,8 @@
-import java.awt.*;
+import java.awt.BorderLayout;
 import java.awt.Color;
-import javax.swing.JPanel;
 
+import javax.swing.JPanel;
+//the GamePanel which holds the game.
 public class GamePanel extends JPanel {
 	
 	private PhysicsDash app;

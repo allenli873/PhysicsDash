@@ -11,12 +11,13 @@ import javax.swing.JPanel;
 public class PhysicsDash extends JFrame implements ActionListener
 {
 	//field variables
-	protected static final int WIDTH = 960;
-	protected static final int HEIGHT = 540;
-	protected static int level;
-	protected static int maxLevel;
-	protected static String charName;
-	protected static Image character;
+	protected final int WIDTH = 960;
+	protected final int HEIGHT = 540;
+	protected int level;
+	protected int maxLevel;
+	protected int frameAt;
+	protected String charName;
+	protected Image character;
 	//the panels of our game
 	public JPanel home, credits, levelSelect, game, instructions;
 	//constructor
@@ -53,6 +54,8 @@ public class PhysicsDash extends JFrame implements ActionListener
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+//		System.out.println(frameAt);
+		frameAt++;
 		repaint();
 	}
 	
