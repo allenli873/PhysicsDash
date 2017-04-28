@@ -1,18 +1,24 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Character implements KeyListener {
 	
 	private float ppm = 150; //ppm is how many pixels represent one meter
 	
 	private PhysicsDash app;
-	private Image character;
+	private Image character, ground;
 	private boolean jumped = false;
 	private boolean left, right;
-	private float x, y;
-	private int w, h;
+	public float x, y;
+	public int w, h;
 	
 	float step = 1/60f;
 	float velY = 0;
@@ -26,7 +32,7 @@ public class Character implements KeyListener {
 		character = app.character;
 		w = (int) ppm/2; //dimensions are 1/2m = 1/2ppm pixels
 		h = (int) ppm/2; 
-		x = (PhysicsDash.WIDTH - w)/2;
+		x = 0;
 		y = 0;
 	}
 	
@@ -34,6 +40,7 @@ public class Character implements KeyListener {
 		g.setColor(Color.RED);
 //		System.out.println("Right:" + right);
 //		System.out.println("Left:" + left);
+		
 		if(right)
 			x += 5;
 		if(left)
