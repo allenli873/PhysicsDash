@@ -5,6 +5,8 @@ import java.awt.*;
 
 public class Character implements KeyListener {
 	
+	private float ppm = 150; //ppm is how many pixels represent one meter
+	
 	private PhysicsDash app;
 	private Image character;
 	private boolean jumped = false;
@@ -12,8 +14,9 @@ public class Character implements KeyListener {
 	private float x, y;
 	private int w, h;
 	
-	float inc = 0;
-	float grav = 12;
+	float step = 1/60f;
+	float velY = 0;
+	float grav = 9.8f;
 	
 	public Character(PhysicsDash p) {
 //		left = false;
@@ -21,8 +24,8 @@ public class Character implements KeyListener {
 		app = p;
 		app.getMyImage();
 		character = app.character;
-		w = 70;
-		h = 70;
+		w = (int) ppm/2; //dimensions are 1/2m = 1/2ppm pixels
+		h = (int) ppm/2; 
 		x = (PhysicsDash.WIDTH - w)/2;
 		y = 0;
 	}
@@ -32,12 +35,12 @@ public class Character implements KeyListener {
 //		System.out.println("Right:" + right);
 //		System.out.println("Left:" + left);
 		if(right)
-			x += 3;
+			x += 5;
 		if(left)
-			x -= 3;
+			x -= 5;
 		g.drawImage(character, (int) x, (int) y, w, h, null);
-		y += grav + inc;
-		inc *= 0.98f;
+		y += velY * step * ppm;
+		velY += grav * step;
 		if(y > PhysicsDash.HEIGHT - Game.GROUND_HEIGHT - h) {
 			y = PhysicsDash.HEIGHT - Game.GROUND_HEIGHT - h;
 			jumped = false;
@@ -50,7 +53,7 @@ public class Character implements KeyListener {
 //		System.out.println(c);
 		if(c == 'w') {
 			if(!jumped) {
-				inc = -20;
+				velY = -4;
 				jumped = true;
 			}
 		}
