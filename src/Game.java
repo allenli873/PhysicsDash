@@ -3,6 +3,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
 
@@ -10,20 +11,23 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class Game extends JPanel {
-	
+	private double rotate;
 	public static final int GROUND_HEIGHT = 150;
 	
 	private PhysicsDash app;
 	
 	private Character player;
 	private Enemy1 enemy1;
+	private Enemy1Tri enemy1tri;
 	private Image ground;
 	//constructor
 	public Game(PhysicsDash p) {
+		rotate = 0;
 		app = p;
 		setSize(960, 540);
 		player = new Character(app);
 		enemy1 = new Enemy1(500, 350);
+		enemy1tri = new Enemy1Tri(500, 350);
 		loadGround();
 		addKeyListener(player);
 	}
@@ -47,13 +51,21 @@ public class Game extends JPanel {
 			g.drawImage(ground, x, app.HEIGHT - GROUND_HEIGHT, GROUND_HEIGHT, GROUND_HEIGHT, null);
 		}
 		//crude hit detection for now
-		Rectangle r = new Rectangle((int)player.x, (int)player.y, player.w, player.h);
-		g.drawRect((int)player.x, (int)player.y, player.w, player.h);
-		Rectangle r2 = new Rectangle(enemy1.x, enemy1.y, enemy1.WIDTH, enemy1.HEIGHT);
-		g.drawRect(enemy1.x, enemy1.y, enemy1.WIDTH, enemy1.HEIGHT);
-		if(g2d.hit(r, r2, false))
+		Rectangle playHit = new Rectangle((int)player.x, (int)player.y, player.w, player.h);
+		Rectangle enemy1Hit = new Rectangle(enemy1.x, enemy1.y, enemy1.WIDTH, enemy1.HEIGHT);
+		
+		if(playHit.intersects(enemy1Hit))
 			System.exit(0);
-		player.draw(g);
+		AffineTransform at = g2d.getTransform();
+		AffineTransform a1 = new AffineTransform(at);
+		a1.translate((enemy1tri.x + Enemy1Tri.DISPLACEMENT) + enemy1tri.LEG_WIDTH / 2, enemy1tri.y + enemy1tri.HEIGHT / 2);
+		rotate += 0.01;
+		a1.rotate(rotate);
+		AffineTransform a2 = new AffineTransform(at);
+		a2.translate((enemy1tri.x + Enemy1Tri.DISPLACEMENT), );
 		enemy1.draw(g);
+		enemy1tri.draw(g);
+		player.draw(g);
+		
 	}
 }

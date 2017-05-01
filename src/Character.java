@@ -13,8 +13,8 @@ public class Character implements KeyListener {
 	private Image character, ground;
 	private boolean jumped = false;
 	private boolean left, right;
-	public float x, y;
-	public int w, h;
+	protected float x, y;
+	protected int w, h;
 	
 	float step = 1/60f;
 	float velY = 0;
