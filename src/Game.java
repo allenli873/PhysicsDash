@@ -18,7 +18,7 @@ public class Game extends JPanel {
 	private Character player;
 	private Enemy1 enemy1;
 	private Image ground;
-	
+	//constructor
 	public Game(PhysicsDash p) {
 		app = p;
 		setSize(960, 540);
@@ -27,14 +27,14 @@ public class Game extends JPanel {
 		loadGround();
 		addKeyListener(player);
 	}
-	
+	//fancy ground
 	public void loadGround() {
 		try {
 			ground = ImageIO.read(new File("basic128.png"));
 		} catch (IOException e) {
 		}
 	}
-	
+	//the paintComponent
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
@@ -46,6 +46,7 @@ public class Game extends JPanel {
 		for(int x = -3000; x < app.WIDTH + 3000; x += GROUND_HEIGHT) {
 			g.drawImage(ground, x, app.HEIGHT - GROUND_HEIGHT, GROUND_HEIGHT, GROUND_HEIGHT, null);
 		}
+		//crude hit detection for now
 		Rectangle r = new Rectangle((int)player.x, (int)player.y, player.w, player.h);
 		g.drawRect((int)player.x, (int)player.y, player.w, player.h);
 		Rectangle r2 = new Rectangle(enemy1.x, enemy1.y, enemy1.WIDTH, enemy1.HEIGHT);
