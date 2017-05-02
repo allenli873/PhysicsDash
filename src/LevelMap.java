@@ -34,11 +34,15 @@ public class LevelMap {
 		}
 	}
 	
-	public void loadLevel(String name) {
+	public void loadLevel(String name) 
+	{
 		Scanner in = null;
-		try {
+		try 
+		{
 			in = new Scanner(new File(name));
-		} catch (FileNotFoundException e) {
+		} 
+		catch (FileNotFoundException e) 
+		{
 			e.printStackTrace();
 			System.exit(1);
 		}
@@ -47,18 +51,24 @@ public class LevelMap {
 		in.nextLine();
 		
 		map = new Tile[height][width];
-		for(int row = 0; row < height; row++) { //row is ycoord
+		for(int row = 0; row < height; row++) 
+		{ 
+			//row is ycoord
 			String line = in.nextLine();
-			for(int col = 0; col < width; col++) { //col is xcoord
+			for(int col = 0; col < width; col++) 
+			{ 
+				//col is xcoord
 				char cTile = line.charAt(col);
 				//set x and y, add to map
 				Tile t = new Tile();
 				t.bounds.x = col * Tile.WIDTH;
 				t.bounds.y = row * Tile.HEIGHT;
-				if(cTile == '#') {
+				if(cTile == '#') 
+				{
 					t.type = Tile.BRICK;
 				}
-				if(cTile == 'P') {
+				if(cTile == 'P') 
+				{
 					player.x = col * Tile.WIDTH;
 					player.y = row * Tile.HEIGHT;
 				}
@@ -68,10 +78,12 @@ public class LevelMap {
 		}
 	}
 	
-	private boolean inBounds(int row, int col) {
+	private boolean inBounds(int row, int col) 
+	{
 		return row >= 0 && row < map.length && col >= 0 && col < map[0].length;
 	}
-	private boolean intersects(int row, int col, int dx, int dy) {
+	private boolean intersects(int row, int col, int dx, int dy) 
+	{
 		g.setColor(Color.GREEN);
 		//g.fillRect(col * 60, row * 60, 60, 60);
 		if(!inBounds(row, col)) return false;

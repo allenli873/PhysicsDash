@@ -1,6 +1,6 @@
 import java.awt.Graphics;
 
-public class Enemy1Tri {
+public class Enemy1Tri2 {
 	private final static int PPM = 150;
 	protected int x, y;
 	//small gap before the legs are drawn
@@ -10,16 +10,16 @@ public class Enemy1Tri {
 	protected final int HEIGHT = PPM / 9;
 	protected final int BODY_HEIGHT = PPM / 3;
 	protected int[] xValsL, yVals, xValsR;
-	public Enemy1Tri(int x, int y) {
+	public Enemy1Tri2(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 	
 	public void draw(Graphics g) {
 //		x -= 2;
-		xValsL = new int[]{x, x + LEG_WIDTH / 2, x + LEG_WIDTH};
 		yVals = new int[]{y + HEIGHT, y, y + HEIGHT};
-		g.fillPolygon(xValsL, yVals, 3);
+		xValsR = new int[]{x + LEG_WIDTH + LEG_GAP, x + LEG_WIDTH + (LEG_WIDTH / 2) + LEG_GAP, x + 2 * LEG_WIDTH + LEG_GAP};
+		g.fillPolygon(xValsR, yVals, 3);
 	}
 	
 }
