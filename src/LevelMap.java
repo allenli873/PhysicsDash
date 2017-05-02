@@ -1,3 +1,13 @@
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+
+import javax.imageio.ImageIO;
+
 //
 //loads map, handles collisions
 public class LevelMap {
@@ -18,7 +28,13 @@ public class LevelMap {
 	}
 	
 	public void loadLevel(String name) {
-		Scanner in = new Scanner(new File(name));
+		Scanner in = null;
+		try {
+			in = new Scanner(new File(name));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
 		int width = in.nextInt(); //read in width and height of level
 		int height = in.nextInt();
 		in.nextLine();

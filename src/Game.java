@@ -64,9 +64,10 @@ public class Game extends JPanel {
 		AffineTransform a2 = new AffineTransform(at);
 		a2.translate(enemy1tri.x + Enemy1Tri.DISPLACEMENT + enemy1tri.LEG_WIDTH / 2, enemy1tri.y + enemy1tri.HEIGHT / 2);
 		a2.rotate(rotate);
+		System.out.println(rotate);
 		enemy1.draw(g);
 		enemy1tri.draw(g);
-		g2d.rotate(rotate);
+//		g2d.rotate(rotate);
 		player.draw(g);
 		
 	}
