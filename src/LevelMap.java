@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import java.awt.Color;
+=======
+>>>>>>> refs/remotes/origin/master
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -40,6 +43,10 @@ public class LevelMap {
 			in = new Scanner(new File(name));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+<<<<<<< HEAD
+=======
+			System.exit(1);
+>>>>>>> refs/remotes/origin/master
 		}
 		int width = in.nextInt(); //read in width and height of level
 		int height = in.nextInt();
