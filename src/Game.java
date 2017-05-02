@@ -68,16 +68,13 @@ public class Game extends JPanel {
 		a2.translate(enemy1tri.x + Enemy1Tri.DISPLACEMENT + enemy1tri.LEG_WIDTH / 2, enemy1tri.y + enemy1tri.HEIGHT / 2);
 		a2.rotate(rotate);
 		System.out.println(rotate);
-		enemy1.draw(g);
-<<<<<<< HEAD
+		enemy1.draw(g)
 		enemy1tri.draw(g);*/
 //		g2d.scale(0.8, 0.8);
 		map.draw(g);
 		map.step(g);
-=======
-		enemy1tri.draw(g);
+		//enemy1tri.draw(g);
 //		g2d.rotate(rotate);
->>>>>>> refs/remotes/origin/master
 		player.draw(g);
 		enemy1.draw(g);
 	}
