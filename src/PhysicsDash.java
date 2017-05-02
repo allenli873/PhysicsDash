@@ -28,7 +28,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		//initialize things
-		level = Integer.MIN_VALUE;
+		level = 1;
 		maxLevel = 1;
 		charName = "deltVdeltT.png";
 		character = null;

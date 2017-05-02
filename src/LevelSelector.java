@@ -53,6 +53,7 @@ public class LevelSelector extends JPanel implements ActionListener
 		{
 			String str = e.getActionCommand();
 			app.level = Integer.parseInt(str);
+			app.game = new GamePanel(app);
 			app.setContentPane(app.game);
 			System.out.println(app.level);
 		}

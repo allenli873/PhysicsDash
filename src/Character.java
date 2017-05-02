@@ -7,18 +7,19 @@ import java.awt.event.KeyListener;
 //the character that is controlled
 public class Character implements KeyListener {
 	
-	private final float PPM = 150; //ppm is how many pixels represent one meter
+	private final float PPM = 120; //ppm is how many pixels represent one meter
 	//field variables
 	private PhysicsDash app;
 	private Image character, ground;
-	private boolean jumped = false;
+	public boolean jumped = false;
 	private boolean left, right;
 	protected float x, y;
 	protected int w, h;
 	
-	float step = 1/60f;
-	float velY = 0;
-	float grav = 9.8f;
+	private float step = 1/60f;
+	public float velX = 0;
+	public float velY = 0;
+	private float grav = 9.8f;
 	//constructor
 	public Character(PhysicsDash p) {
 		app = p;
@@ -31,18 +32,23 @@ public class Character implements KeyListener {
 	}
 	//draws the character in the ever changing X/Y positions
 	public void draw(Graphics g) {
-		g.setColor(Color.RED);
 		//checks if right or left was pressed
-		if(right)
-			x += 5;
-		if(left)
-			x -= 5;
-		g.drawImage(character, (int) x, (int) y, w, h, null);
+		x += velX * step * PPM;
 		y += velY * step * PPM;
+		//System.out.println("(" + x + ", " + y + ")");
+		if(right) {
+			velX += 0.05f;
+		}
+		if(left) {
+			velX -= 0.05f;
+		}
+		//if(velX > 3) velX = 3;
+		//if(velX < 3) velX = -3;
+		g.drawImage(character, (int) x, (int) y, w, h, null);
 		velY += grav * step;
 		if(y > app.HEIGHT - Game.GROUND_HEIGHT - h) {
-			y = app.HEIGHT - Game.GROUND_HEIGHT - h;
-			jumped = false;
+			//y = app.HEIGHT - Game.GROUND_HEIGHT - h;
+			//jumped = false;
 		}
 	}
 	//makes sure character only jumps one time, jump by pressing w

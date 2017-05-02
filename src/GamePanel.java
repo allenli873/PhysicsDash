@@ -12,7 +12,7 @@ public class GamePanel extends JPanel {
 		app = p;
 		game = new Game(p);
 		setLayout(new BorderLayout());
-		game.setBackground(Color.GREEN);
+		game.setBackground(new Color(60, 60, 80));
 		setSize(960, 540);	
 		add(game);
 	}

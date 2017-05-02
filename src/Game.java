@@ -16,6 +16,7 @@ public class Game extends JPanel {
 	
 	private PhysicsDash app;
 	
+	private LevelMap map;
 	private Character player;
 	private Enemy1 enemy1;
 	private Enemy1Tri enemy1tri;
@@ -28,6 +29,7 @@ public class Game extends JPanel {
 		player = new Character(app);
 		enemy1 = new Enemy1(500, 350);
 		enemy1tri = new Enemy1Tri(500, 350);
+		map = new LevelMap(player, app.level);
 		loadGround();
 		addKeyListener(player);
 	}
@@ -44,12 +46,13 @@ public class Game extends JPanel {
 		
 		requestFocusInWindow();
 		
+		
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.translate((int)  (app.WIDTH - player.w)/2 - player.x, 0);
+	    g2d.translate((int)  (app.WIDTH - player.w)/2 - player.x, 0);
 		g.setColor(new Color(175, 60, 0));
-		for(int x = -3000; x < app.WIDTH + 3000; x += GROUND_HEIGHT) {
-			g.drawImage(ground, x, app.HEIGHT - GROUND_HEIGHT, GROUND_HEIGHT, GROUND_HEIGHT, null);
-		}
+		//for(int x = -3000; x < app.WIDTH + 3000; x += GROUND_HEIGHT) {
+			//g.drawImage(ground, x, app.HEIGHT - GROUND_HEIGHT, GROUND_HEIGHT, GROUND_HEIGHT, null);
+		//}
 		//crude hit detection for now
 		Rectangle playHit = new Rectangle((int)player.x, (int)player.y, player.w, player.h);
 		Rectangle enemy1Hit = new Rectangle(enemy1.x, enemy1.y, enemy1.WIDTH, enemy1.HEIGHT);
@@ -57,15 +60,18 @@ public class Game extends JPanel {
 		if(playHit.intersects(enemy1Hit))
 			System.exit(0);
 		AffineTransform at = g2d.getTransform();
-		AffineTransform a1 = new AffineTransform(at);
+		/*AffineTransform a1 = new AffineTransform(at);
 		a1.translate((enemy1tri.x + Enemy1Tri.DISPLACEMENT) + enemy1tri.LEG_WIDTH / 2, enemy1tri.y + enemy1tri.HEIGHT / 2);
 		rotate += 0.01;
 		a1.rotate(rotate);
 		AffineTransform a2 = new AffineTransform(at);
 		a2.translate((enemy1tri.x + Enemy1Tri.DISPLACEMENT), );
 		enemy1.draw(g);
-		enemy1tri.draw(g);
+		enemy1tri.draw(g);*/
+//		g2d.scale(0.8, 0.8);
+		map.draw(g);
+		map.step(g);
 		player.draw(g);
-		
+		enemy1.draw(g);
 	}
 }
