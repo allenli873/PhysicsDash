@@ -1,13 +1,26 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.ImageObserver;
 
 public class Enemy1 {
 	private final int PPM = 150;
 	protected final int HEIGHT = PPM / 3;
 	protected final int WIDTH = PPM / 2;
 	protected int x, y;
+	protected String temp;
+	protected Image lenny;
 	protected int[] xVals, yVals;
-	public Enemy1(int x, int y) {
+	protected PhysicsDash app;
+	public Enemy1(int x, int y, PhysicsDash p) {
+		app = p;
+		//getting the image
+		temp = app.charName;
+		app.charName = "lenny";
+		app.getMyImage();
+		lenny = app.character;
+		app.charName = temp;
+		
 		this.x = x;
 		this.y = y - PPM / 3;
 	}
@@ -20,5 +33,7 @@ public class Enemy1 {
 		Color c = new Color(139, 69, 19);
 		g.setColor(c);
 		g.fillPolygon(xVals, yVals, 3);
+		g.setColor(Color.BLACK);
+		g.drawImage(lenny, x, y - 15, PPM / 2, HEIGHT + 20, null);
 	}
 }

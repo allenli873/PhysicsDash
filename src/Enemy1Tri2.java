@@ -7,7 +7,7 @@ public class Enemy1Tri2 {
 	public final static int LEG_GAP = PPM / 12;
 	protected final int LEG_WIDTH = PPM / 6;
 	protected final int WIDTH = PPM / 2;
-	protected final int HEIGHT = PPM / 9;
+	protected final int HEIGHT = PPM / 8;
 	protected final int BODY_HEIGHT = PPM / 3;
 	protected int[] xValsL, yVals, xValsR;
 	public Enemy1Tri2(int x, int y) {

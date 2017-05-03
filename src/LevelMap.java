@@ -15,11 +15,13 @@ public class LevelMap {
 
 	private Tile[][] map; //2d array of tiles makes up the map
 	private Graphics g;
-	
+	private Game game;
 	private Image brick;
 	private Character player;
-
-	public LevelMap(Character _player, int level) {
+	private PhysicsDash app;
+	public LevelMap(Character _player, int level, Game game, PhysicsDash p) {
+		app = p;
+		this.game = game;
 		player = _player;
 		loadLevel("levels/map" + level + ".lvl");
 		loadImages();
@@ -36,7 +38,7 @@ public class LevelMap {
 	
 	public void loadLevel(String name) 
 	{
-		Scanner in = null;
+		Scanner in = null; 
 		try 
 		{
 			in = new Scanner(new File(name));
@@ -67,10 +69,20 @@ public class LevelMap {
 				{
 					t.type = Tile.BRICK;
 				}
-				if(cTile == 'P') 
+				else if(cTile == 'P') 
 				{
 					player.x = col * Tile.WIDTH;
 					player.y = row * Tile.HEIGHT;
+				}
+				else if(cTile == '|') 
+				{
+					t.type = Tile.CHECKPOINT;
+				}
+				else if(cTile == '1') 
+				{
+					app.xEnemy1.add(col * Tile.WIDTH);
+					app.yEnemy1.add(row * Tile.HEIGHT + 35);
+					System.out.println("hi");
 				}
 				map[row][col] = t;
 				//assign image type based on char
@@ -117,20 +129,20 @@ public class LevelMap {
 		int dX = player.x % Tile.WIDTH > Tile.WIDTH/2 ? 1 : -1;
 		int dY = player.y % Tile.HEIGHT > Tile.HEIGHT/2 ? 1 : -1;
 		
-		if(intersects(playerRow + 1, playerCol, dX, 0) && player.velY > 0) {
+		if(intersects(playerRow + 1, playerCol, 1, 0) && player.velY > 0) {
 			player.jumped = false;
 			player.velY = 0;
 			player.y = playerRow * Tile.HEIGHT;
 		}
-		if(intersects(playerRow2 - 1, playerCol, dX, 0) && player.velY < 0) {
+		if(intersects(playerRow2 - 1, playerCol, 1, 0) && player.velY < 0) { //up
 			player.velY = 0;
 			player.y = playerRow2 * Tile.HEIGHT;
 		}
-		if(intersects(playerRow, playerCol2 - 1, 0, dY) && player.velX < 0) {
+		if(intersects(playerRow, playerCol2 - 1, 0, 1) && player.velX < 0) { //left
 			player.velX = 0;
 			player.x = playerCol2 * Tile.WIDTH;
 		}
-		if(intersects(playerRow, playerCol + 1, 0, dY) && player.velX > 0) {
+		if(intersects(playerRow, playerCol + 1, 0, 1) && player.velX > 0) { //right
 			player.velX = 0;
 			player.x = playerCol * Tile.WIDTH;
 		}

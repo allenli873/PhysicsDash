@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -18,8 +19,7 @@ public class Game extends JPanel {
 	private PhysicsDash app;
 	private LevelMap map;
 	private Character player;
-//	private List<Enemy1> enemies;
-//	private List<Enemy1Tri> enemyLegs;
+	
 	
 	private Image ground;
 	//constructor
@@ -28,7 +28,7 @@ public class Game extends JPanel {
 		app = p;
 		setSize(960, 540);
 		player = new Character(app);
-		map = new LevelMap(player, app.level);
+		map = new LevelMap(player, app.level, this, app);
 		loadGround();
 		addKeyListener(player);
 	}
@@ -40,10 +40,10 @@ public class Game extends JPanel {
 		}
 	}
 	public void makeEnemy(Graphics g, int x, int y) {
-		rotate += 0.01;
+		rotate += 0.1;
 		Graphics2D g2d = (Graphics2D)g;
 		AffineTransform original = g2d.getTransform();
-		Enemy1 e1 = new Enemy1(x, y);
+		Enemy1 e1 = new Enemy1(x, y, app);
 		e1.draw(g);
 		Enemy1Tri e1t = new Enemy1Tri(x, y);
 		g2d.rotate(rotate, (e1t.x) + e1t.LEG_WIDTH / 2, e1t.y + e1t.HEIGHT / 2);
@@ -72,30 +72,15 @@ public class Game extends JPanel {
 	    g2d.translate((int)  (app.WIDTH - player.w)/2 - player.x, 0);
 		g.setColor(new Color(175, 60, 0));
 		
-		
-		//rotating wheels for enemy's legs
-//		AffineTransform at = g2d.getTransform();
-//		AffineTransform a1 = new AffineTransform(at);
-//		a1.translate((enemy1tri.x + Enemy1Tri.LEG_GAP) + enemy1tri.LEG_WIDTH / 2, enemy1tri.y + enemy1tri.HEIGHT / 2);
-//		rotate += 0.01;
-//		a1.rotate(rotate);
-//		AffineTransform a2 = new AffineTransform(at);
-//		a2.translate(enemy1tri.x + Enemy1Tri.LEG_GAP + enemy1tri.LEG_WIDTH / 2, enemy1tri.y + enemy1tri.HEIGHT / 2);
-//		a2.rotate(rotate);
-//		System.out.println(rotate);
-//		enemy1.draw(g);
-//		enemy1tri.draw(g);
-////		g2d.scale(0.8, 0.8);
 		map.draw(g);
-		map.step(g);
-//		//enemy1tri.draw(g);
-////		g2d.rotate(rotate);
-//		enemy1.draw(g);
-		player.draw(g);
+		player.draw(g, map);
 		
-		makeEnemy(g, 500, 350);
-		makeEnemy(g, 450, 350);
-		makeEnemy(g, 350, 350);
+//		if(app.xEnemy1.size() > 0 && app.yEnemy1.size() > 0) {
+		for(int i = 0; i < app.xEnemy1.size(); i++) {
+			makeEnemy(g, app.xEnemy1.get(i), app.yEnemy1.get(i));
+			app.xEnemy1.set(i, app.xEnemy1.get(i) - 1);
+		}
+//		}
 		
 	}
 }

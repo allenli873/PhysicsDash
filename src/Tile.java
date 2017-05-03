@@ -8,6 +8,7 @@ public class Tile {
 	//types
 	public static final int NONE = 0;
 	public static final int BRICK = 1;
+	public static final int CHECKPOINT = 2;
 	
 	//used for methods like intersects(), hit(), etc.
 	public Rectangle bounds;

@@ -30,12 +30,13 @@ public class Character implements KeyListener {
 		x = 0;
 		y = 0;
 	}
+	
 	//draws the character in the ever changing X/Y positions
-	public void draw(Graphics g) {
+	public void draw(Graphics g, LevelMap map) {
 		//checks if right or left was pressed
 		x += velX * step * PPM;
 		y += velY * step * PPM;
-		//System.out.println("(" + x + ", " + y + ")");
+		map.step(g);
 		if(right) {
 			velX += 0.05f;
 		}

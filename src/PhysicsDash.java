@@ -1,11 +1,15 @@
-import java.awt.*;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.awt.event.*;
-import javax.swing.Timer;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 //file to be run
 public class PhysicsDash extends JFrame implements ActionListener
@@ -18,11 +22,15 @@ public class PhysicsDash extends JFrame implements ActionListener
 	protected int frameAt;
 	protected String charName;
 	protected Image character;
+	protected List<Integer> xEnemy1;
+	protected List<Integer> yEnemy1;
 	//the panels of our game
 	public JPanel home, credits, levelSelect, game, instructions;
 	//constructor
 	public PhysicsDash()
 	{
+		xEnemy1 = new ArrayList<Integer>();
+		yEnemy1 = new ArrayList<Integer>();
 		//sets size to 960x540
 		setSize(WIDTH, HEIGHT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -30,7 +38,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 		//initialize things
 		level = 1;
 		maxLevel = 1;
-		charName = "deltVdeltT.png";
+		charName = "deltVdeltT";
 		character = null;
 		//makes class objects
 		credits = new CreditsAndStats(this);
@@ -45,7 +53,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 	public void getMyImage() {
 		try 
 		{
-			character = ImageIO.read(new File(charName));
+			character = ImageIO.read(new File(charName + ".png"));
 		} 
 		catch(IOException e) 
 		{
