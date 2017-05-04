@@ -17,7 +17,6 @@ public class Enemy1Tri {
 	}
 	
 	public void draw(Graphics g) {
-//		x -= 2;
 		g.setColor(Color.BLACK);
 		xValsL = new int[]{x, x + LEG_WIDTH / 2, x + LEG_WIDTH};
 		yVals = new int[]{y + HEIGHT, y, y + HEIGHT};

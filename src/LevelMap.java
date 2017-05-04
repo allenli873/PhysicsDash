@@ -17,9 +17,9 @@ public class LevelMap {
 	private Graphics g;
 	private Game game;
 	private Image brick;
-	private Character player;
+	private Player player;
 	private PhysicsDash app;
-	public LevelMap(Character _player, int level, Game game, PhysicsDash p) {
+	public LevelMap(Player _player, int level, Game game, PhysicsDash p) {
 		app = p;
 		this.game = game;
 		player = _player;
@@ -53,40 +53,45 @@ public class LevelMap {
 		in.nextLine();
 		
 		map = new Tile[height][width];
-		for(int row = 0; row < height; row++) 
-		{ 
-			//row is ycoord
-			String line = in.nextLine();
-			for(int col = 0; col < width; col++) 
+		try
+		{
+			for(int row = 0; row < height; row++) 
 			{ 
-				//col is xcoord
-				char cTile = line.charAt(col);
-				//set x and y, add to map
-				Tile t = new Tile();
-				t.bounds.x = col * Tile.WIDTH;
-				t.bounds.y = row * Tile.HEIGHT;
-				if(cTile == '#') 
-				{
-					t.type = Tile.BRICK;
+				//row is ycoord
+				String line = in.nextLine();
+				for(int col = 0; col < width; col++) 
+				{ 
+					//col is xcoord
+					char cTile = line.charAt(col);
+					//set x and y, add to map
+					Tile t = new Tile();
+					t.bounds.x = col * Tile.WIDTH;
+					t.bounds.y = row * Tile.HEIGHT;
+					if(cTile == '#') 
+					{
+						t.type = Tile.BRICK;
+					}
+					else if(cTile == 'P') 
+					{
+						player.x = col * Tile.WIDTH;
+						player.y = row * Tile.HEIGHT;
+					}
+					else if(cTile == '|') 
+					{
+						t.type = Tile.CHECKPOINT;
+					}
+					else if(cTile == '1') 
+					{
+						app.xEnemy1.add(col * Tile.WIDTH);
+						app.yEnemy1.add(row * Tile.HEIGHT + 35);
+					}
+					map[row][col] = t;
+					//assign image type based on char
 				}
-				else if(cTile == 'P') 
-				{
-					player.x = col * Tile.WIDTH;
-					player.y = row * Tile.HEIGHT;
-				}
-				else if(cTile == '|') 
-				{
-					t.type = Tile.CHECKPOINT;
-				}
-				else if(cTile == '1') 
-				{
-					app.xEnemy1.add(col * Tile.WIDTH);
-					app.yEnemy1.add(row * Tile.HEIGHT + 35);
-					System.out.println("hi");
-				}
-				map[row][col] = t;
-				//assign image type based on char
 			}
+		} catch(StringIndexOutOfBoundsException e) {
+			System.err.println("Error: You're retarded and you made the level wrong."); 
+			System.exit(1);
 		}
 	}
 	
@@ -126,8 +131,8 @@ public class LevelMap {
 		int playerRow2 = (int) Math.ceil(player.y / Tile.HEIGHT);
 		int playerCol = (int) (player.x / Tile.WIDTH);
 		int playerCol2 = (int) Math.ceil(player.x / Tile.WIDTH);
-		int dX = player.x % Tile.WIDTH > Tile.WIDTH/2 ? 1 : -1;
-		int dY = player.y % Tile.HEIGHT > Tile.HEIGHT/2 ? 1 : -1;
+//		int dX = player.x % Tile.WIDTH > Tile.WIDTH/2 ? 1 : -1;
+//		int dY = player.y % Tile.HEIGHT > Tile.HEIGHT/2 ? 1 : -1;
 		
 		if(intersects(playerRow + 1, playerCol, 1, 0) && player.velY > 0) {
 			player.jumped = false;
@@ -149,15 +154,10 @@ public class LevelMap {
 	}
 	
 	public void draw(Graphics g) {
-		for(int row = 0; row < map.length; row++) {
-			for(int col = 0; col < map[0].length; col++) {
-				if(map[row][col].type == Tile.BRICK) {
+		for(int row = 0; row < map.length; row++) 
+			for(int col = 0; col < map[0].length; col++) 
+				if(map[row][col].type == Tile.BRICK) 
 					g.drawImage(brick, col * Tile.WIDTH, row * Tile.HEIGHT, Tile.WIDTH, Tile.HEIGHT, null);
-					//g.setColor(Color.RED);
-					//g.fillRect(col * Tile.WIDTH, row * Tile.HEIGHT, Tile.WIDTH, Tile.HEIGHT);
-					//System.out.println("brick");
-				}
-			}
-		}		
+			
 	}
 }

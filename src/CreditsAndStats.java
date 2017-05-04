@@ -12,12 +12,12 @@ import javax.swing.JPanel;
 public class CreditsAndStats extends JPanel implements ActionListener
 {
 	
-	private PhysicsDash win;
+	private PhysicsDash app;
 	
 	//constructor
 	public CreditsAndStats(PhysicsDash p)
 	{
-		win = p;
+		app = p;
 		setSize(960, 540);
 		setBackground(new Color(255, 100, 0));
 		setLayout(new FlowLayout(FlowLayout.LEFT, 50, 40));
@@ -29,7 +29,7 @@ public class CreditsAndStats extends JPanel implements ActionListener
 	}
 	//back button
 	public void actionPerformed(ActionEvent e) {
-		win.setContentPane(win.home);
+		app.setContentPane(app.home);
 	}
 	class Credits extends JPanel
 	{
@@ -64,6 +64,9 @@ public class CreditsAndStats extends JPanel implements ActionListener
 		public void paintComponent(Graphics g)
 		{
 			super.paintComponent(g);
+			g.setFont(new Font("Sans Serif", Font.PLAIN, 20));
+			g.drawString("Statistics:", 25, 40);
+			g.drawString("Times Jumped: " + app.numJumps, 25, 80);
 		}
 		
 	}

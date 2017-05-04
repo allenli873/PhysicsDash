@@ -3,11 +3,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -18,7 +15,7 @@ public class Game extends JPanel {
 	
 	private PhysicsDash app;
 	private LevelMap map;
-	private Character player;
+	private Player player;
 	
 	
 	private Image ground;
@@ -27,7 +24,7 @@ public class Game extends JPanel {
 		rotate = 0;
 		app = p;
 		setSize(960, 540);
-		player = new Character(app);
+		player = new Player(app);
 		map = new LevelMap(player, app.level, this, app);
 		loadGround();
 		addKeyListener(player);
@@ -40,9 +37,9 @@ public class Game extends JPanel {
 		}
 	}
 	public void makeEnemy(Graphics g, int x, int y) {
+		//this is actually hella laggy :(
 		rotate += 0.1;
 		Graphics2D g2d = (Graphics2D)g;
-		AffineTransform original = g2d.getTransform();
 		Enemy1 e1 = new Enemy1(x, y, app);
 		e1.draw(g);
 		Enemy1Tri e1t = new Enemy1Tri(x, y);
@@ -74,13 +71,10 @@ public class Game extends JPanel {
 		
 		map.draw(g);
 		player.draw(g, map);
-		
-//		if(app.xEnemy1.size() > 0 && app.yEnemy1.size() > 0) {
 		for(int i = 0; i < app.xEnemy1.size(); i++) {
 			makeEnemy(g, app.xEnemy1.get(i), app.yEnemy1.get(i));
 			app.xEnemy1.set(i, app.xEnemy1.get(i) - 1);
 		}
-//		}
 		
 	}
 }

@@ -1,7 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.ImageObserver;
 
 public class Enemy1 {
 	private final int PPM = 150;

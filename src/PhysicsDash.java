@@ -17,18 +17,19 @@ public class PhysicsDash extends JFrame implements ActionListener
 	//field variables
 	protected final int WIDTH = 960;
 	protected final int HEIGHT = 540;
-	protected int level;
-	protected int maxLevel;
-	protected int frameAt;
+	protected int level, maxLevel, frameAt;
+	//statistic variables
+	protected int numJumps;
 	protected String charName;
 	protected Image character;
-	protected List<Integer> xEnemy1;
-	protected List<Integer> yEnemy1;
+	protected List<Integer> xEnemy1, yEnemy1;
 	//the panels of our game
 	public JPanel home, credits, levelSelect, game, instructions;
 	//constructor
 	public PhysicsDash()
 	{
+		numJumps = 0;
+		
 		xEnemy1 = new ArrayList<Integer>();
 		yEnemy1 = new ArrayList<Integer>();
 		//sets size to 960x540
@@ -63,7 +64,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 	
 	public void playerDies() {
 		//put something actual here later
-		System.exit(0);
+		System.out.println("player dies");
 	}
 	
 	public void actionPerformed(ActionEvent e) {

@@ -1,16 +1,15 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 //the character that is controlled
-public class Character implements KeyListener {
+public class Player implements KeyListener {
 	
 	private final float PPM = 120; //ppm is how many pixels represent one meter
 	//field variables
 	private PhysicsDash app;
-	private Image character, ground;
+	private Image character;
 	public boolean jumped = false;
 	private boolean left, right;
 	protected float x, y;
@@ -21,7 +20,7 @@ public class Character implements KeyListener {
 	public float velY = 0;
 	private float grav = 9.8f;
 	//constructor
-	public Character(PhysicsDash p) {
+	public Player(PhysicsDash p) {
 		app = p;
 		app.getMyImage();
 		character = app.character;
@@ -34,29 +33,29 @@ public class Character implements KeyListener {
 	//draws the character in the ever changing X/Y positions
 	public void draw(Graphics g, LevelMap map) {
 		//checks if right or left was pressed
+		
+		//friction
+		if(velX - 0.02 != 0)
+			velX = velX < 0 ? velX + 0.02f : velX - 0.02f;
+		
 		x += velX * step * PPM;
 		y += velY * step * PPM;
 		map.step(g);
-		if(right) {
-			velX += 0.05f;
-		}
-		if(left) {
-			velX -= 0.05f;
-		}
-		//if(velX > 3) velX = 3;
-		//if(velX < 3) velX = -3;
+		if(right) 
+			if(velX < 3f)
+				velX += 0.07f;
+		if(left) 
+			if(velX > -3f)
+				velX -= 0.07f;
 		g.drawImage(character, (int) x, (int) y, w, h, null);
 		velY += grav * step;
-		if(y > app.HEIGHT - Game.GROUND_HEIGHT - h) {
-			//y = app.HEIGHT - Game.GROUND_HEIGHT - h;
-			//jumped = false;
-		}
 	}
 	//makes sure character only jumps one time, jump by pressing w
 	public void keyTyped(KeyEvent e) {
 		char c = e.getKeyChar();
 		if(c == 'w') {
 			if(!jumped) {
+				app.numJumps++;
 				velY = -4;
 				jumped = true;
 			}
