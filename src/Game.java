@@ -15,7 +15,8 @@ public class Game extends JPanel {
 	
 	private PhysicsDash app;
 	private LevelMap map;
-	private Player player;
+	protected Player player;
+	public boolean shouldRequest;
 	
 	
 	private Image ground;
@@ -23,7 +24,7 @@ public class Game extends JPanel {
 	public Game(PhysicsDash p) {
 		rotate = 0;
 		app = p;
-		setSize(960, 540);
+		shouldRequest = true;
 		player = new Player(app);
 		map = new LevelMap(player, app.level, this, app);
 		loadGround();
@@ -62,15 +63,17 @@ public class Game extends JPanel {
 	//the paintComponent
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
-		requestFocusInWindow();
+		//requests focus in window
+		if(shouldRequest) requestFocusInWindow();
 		
 		Graphics2D g2d = (Graphics2D) g;
+		g2d.scale(400.0/540.0, 400.0/540.0);
 	    g2d.translate((int)  (app.WIDTH - player.w)/2 - player.x, 0);
 		g.setColor(new Color(175, 60, 0));
-		
-		map.draw(g);
+		//player generation
 		player.draw(g, map);
+		map.draw(g);
+		//enemy generation
 		for(int i = 0; i < app.xEnemy1.size(); i++) {
 			makeEnemy(g, app.xEnemy1.get(i), app.yEnemy1.get(i));
 			app.xEnemy1.set(i, app.xEnemy1.get(i) - 1);

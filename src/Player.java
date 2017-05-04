@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 //the character that is controlled
 public class Player implements KeyListener {
 	
-	private final float PPM = 120; //ppm is how many pixels represent one meter
+	public static final float PPM = 120; //ppm is how many pixels represent one meter
 	//field variables
 	private PhysicsDash app;
 	private Image character;
@@ -35,9 +35,10 @@ public class Player implements KeyListener {
 		//checks if right or left was pressed
 		
 		//friction
-		if(velX - 0.02 != 0)
+		if(velX - 0.02 != 0 && !jumped)
 			velX = velX < 0 ? velX + 0.02f : velX - 0.02f;
-		
+		if(Math.abs(velX) < 0.02)
+			velX = 0;
 		x += velX * step * PPM;
 		y += velY * step * PPM;
 		map.step(g);
@@ -50,27 +51,25 @@ public class Player implements KeyListener {
 		g.drawImage(character, (int) x, (int) y, w, h, null);
 		velY += grav * step;
 	}
-	//makes sure character only jumps one time, jump by pressing w
-	public void keyTyped(KeyEvent e) {
-		char c = e.getKeyChar();
-		if(c == 'w') {
+	//makes sure character only jumps one time, jump by pressing up arrow
+	public void keyTyped(KeyEvent e) {}
+	//move left or right by pressing and holding a and d respectively
+	public void keyPressed(KeyEvent e) {
+		int code = e.getKeyCode();
+		//code for left
+		if(code == KeyEvent.VK_LEFT)
+			left = true;
+		//code for right
+		if(code == KeyEvent.VK_RIGHT)
+			right = true;
+		int c = e.getKeyCode();
+		if(c == KeyEvent.VK_UP) {
 			if(!jumped) {
 				app.numJumps++;
 				velY = -4;
 				jumped = true;
 			}
 		}
-		
-	}
-	//move left or right by pressing and holding a and d respectively
-	public void keyPressed(KeyEvent e) {
-		int code = e.getKeyCode();
-		//code for a
-		if(code == KeyEvent.VK_A)
-			left = true;
-		//code for d
-		if(code == KeyEvent.VK_D)
-			right = true;
 	}
 	//stops moving when key is released
 	public void keyReleased(KeyEvent e) {

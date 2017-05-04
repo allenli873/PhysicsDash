@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -16,10 +17,12 @@ public class LevelMap {
 	private Tile[][] map; //2d array of tiles makes up the map
 	private Graphics g;
 	private Game game;
-	private Image brick;
+	private Image brick, cpImage;
 	private Player player;
 	private PhysicsDash app;
+	private ArrayList<Tile> checkpoints;
 	public LevelMap(Player _player, int level, Game game, PhysicsDash p) {
+		checkpoints = new ArrayList<Tile>();
 		app = p;
 		this.game = game;
 		player = _player;
@@ -30,6 +33,7 @@ public class LevelMap {
 	public void loadImages() {
 		try {
 			brick = ImageIO.read(new File("basic128.png"));
+			cpImage = ImageIO.read(new File("flag.png"));
 		}
 		catch(IOException e) { 
 			e.printStackTrace();
@@ -78,6 +82,7 @@ public class LevelMap {
 					}
 					else if(cTile == '|') 
 					{
+						checkpoints.add(t);
 						t.type = Tile.CHECKPOINT;
 					}
 					else if(cTile == '1') 
@@ -105,7 +110,7 @@ public class LevelMap {
 		//g.fillRect(col * 60, row * 60, 60, 60);
 		if(!inBounds(row, col)) return false;
 		Tile t = map[row][col];
-		boolean int1 = t.type != Tile.NONE && t.bounds.intersects(player.x, player.y, player.w, player.h);
+		boolean int1 = t.type == Tile.BRICK && t.bounds.intersects(player.x, player.y, player.w, player.h);
 		if(int1) {
 			//System.out.println("INT1");
 			return true;
@@ -114,7 +119,7 @@ public class LevelMap {
 		t = map[row + dy][col + dx];
 		g.setColor(Color.RED);
 		//g.fillRect((col+dx) * 60, (row+dy) * 60, 60, 60);
-		boolean int2 = t.type != Tile.NONE && t.bounds.intersects(player.x, player.y, player.w, player.h);
+		boolean int2 = t.type == Tile.BRICK && t.bounds.intersects(player.x, player.y, player.w, player.h);
 		//System.out.println("int2: " + int2);
 		return int2;
 	}
@@ -131,8 +136,8 @@ public class LevelMap {
 		int playerRow2 = (int) Math.ceil(player.y / Tile.HEIGHT);
 		int playerCol = (int) (player.x / Tile.WIDTH);
 		int playerCol2 = (int) Math.ceil(player.x / Tile.WIDTH);
-//		int dX = player.x % Tile.WIDTH > Tile.WIDTH/2 ? 1 : -1;
-//		int dY = player.y % Tile.HEIGHT > Tile.HEIGHT/2 ? 1 : -1;
+		int dX = player.x % Tile.WIDTH > Tile.WIDTH/2 ? 1 : -1;
+		int dY = player.y % Tile.HEIGHT > Tile.HEIGHT/2 ? 1 : -1;
 		
 		if(intersects(playerRow + 1, playerCol, 1, 0) && player.velY > 0) {
 			player.jumped = false;
@@ -151,13 +156,31 @@ public class LevelMap {
 			player.velX = 0;
 			player.x = playerCol * Tile.WIDTH;
 		}
+		
+		for(int i = 0; i < checkpoints.size(); i++) {
+			Tile ct = checkpoints.get(i);
+			if(pBounds.intersects(ct.bounds)) {
+				player.x = ct.bounds.x;
+				player.y = ct.bounds.y;
+				player.velX = 0;
+				player.velY = 0;
+				app.game.checkpointHit(); //triggered
+			}
+		}
 	}
 	
 	public void draw(Graphics g) {
-		for(int row = 0; row < map.length; row++) 
-			for(int col = 0; col < map[0].length; col++) 
-				if(map[row][col].type == Tile.BRICK) 
-					g.drawImage(brick, col * Tile.WIDTH, row * Tile.HEIGHT, Tile.WIDTH, Tile.HEIGHT, null);
-			
+		for(int row = 0; row < map.length; row++) {
+			for(int col = 0; col < map[0].length; col++) {
+				Image i = null;
+				if(map[row][col].type == Tile.BRICK) {
+					i = brick;
+				}
+				if(map[row][col].type == Tile.CHECKPOINT) {
+					i = cpImage;
+				}
+				g.drawImage(i, col * Tile.WIDTH, row * Tile.HEIGHT, Tile.WIDTH, Tile.HEIGHT, null);
+			}
+		}		
 	}
 }

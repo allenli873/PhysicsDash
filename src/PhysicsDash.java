@@ -24,7 +24,8 @@ public class PhysicsDash extends JFrame implements ActionListener
 	protected Image character;
 	protected List<Integer> xEnemy1, yEnemy1;
 	//the panels of our game
-	public JPanel home, credits, levelSelect, game, instructions;
+	public JPanel home, credits, levelSelect, instructions;
+	public GamePanel game;
 	//constructor
 	public PhysicsDash()
 	{

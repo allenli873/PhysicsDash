@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 public class Enemy1 {
-	private final int PPM = 150;
+	private final int PPM = 120;
 	protected final int HEIGHT = PPM / 3;
 	protected final int WIDTH = PPM / 2;
 	protected int x, y;
