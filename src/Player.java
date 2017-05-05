@@ -37,17 +37,24 @@ public class Player implements KeyListener {
 		//friction
 		if(velX - 0.02 != 0 && !jumped)
 			velX = velX < 0 ? velX + 0.02f : velX - 0.02f;
+		
 		if(Math.abs(velX) < 0.02)
 			velX = 0;
+		
 		x += velX * step * PPM;
 		y += velY * step * PPM;
 		map.step(g);
+//		System.out.println(y);
+		if(y > 600)
+			app.playerDies();
 		if(right) 
 			if(velX < 3f)
 				velX += 0.07f;
+		
 		if(left) 
 			if(velX > -3f)
 				velX -= 0.07f;
+		
 		g.drawImage(character, (int) x, (int) y, w, h, null);
 		velY += grav * step;
 	}
@@ -74,9 +81,9 @@ public class Player implements KeyListener {
 	//stops moving when key is released
 	public void keyReleased(KeyEvent e) {
 		int code = e.getKeyCode();
-		if(code == KeyEvent.VK_A)
+		if(code == KeyEvent.VK_LEFT)
 			left = false;
-		if(code == KeyEvent.VK_D)
+		if(code == KeyEvent.VK_RIGHT)
 			right = false;
 		
 	}
