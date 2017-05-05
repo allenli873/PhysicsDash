@@ -15,6 +15,7 @@ import javax.swing.Timer;
 public class PhysicsDash extends JFrame implements ActionListener
 {
 	//field variables
+	public static Timer loop;
 	protected final int WIDTH = 960;
 	protected final int HEIGHT = 540;
 	protected int level, maxLevel, frameAt;
@@ -77,7 +78,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 	public static void main(String[] args)
 	{
 		PhysicsDash p = new PhysicsDash();
-		Timer loop = new Timer(16, p);
+		loop = new Timer(16, p);
 		loop.start();
 	}
 }

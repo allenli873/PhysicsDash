@@ -49,5 +49,6 @@ public class GamePanel extends JPanel {
         info.velY.setText("0.0");
         info.gapWidth.setText("4.0m");
         info.angle.setText("30 deg");
+        PhysicsDash.loop.stop();
 	}
 }

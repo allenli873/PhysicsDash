@@ -55,7 +55,7 @@ public class InfoPanel extends JPanel implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-	
+		
 	}
 	
 }
