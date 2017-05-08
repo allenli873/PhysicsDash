@@ -5,22 +5,23 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+//panel with all the info needed to solve equations (and a little more)
 public class InfoPanel extends JPanel implements ActionListener {
-	
+	//field variables
 	private JLabel vx, vy, px, py, gw, a;	
 	public JTextField velX, velY, posX, posY, gapWidth, angle;
 	public JButton submit;
-	
+	//constructor
 	public InfoPanel() {
 		setSize(490, 140);
+		//labels with the information
 		vx = new JLabel("Vel X:");
 		vy = new JLabel("Vel Y:");
 		px = new JLabel("Pos X:");
 		py = new JLabel("Pos Y:");
 		gw = new JLabel("Gap Width:");
 		a = new JLabel("Angle:");
-		
+		//the information
 		velX = new JTextField("0.0", 5);
 		velY = new JTextField("0.0", 5);
 		posX = new JTextField("0.0", 5);
@@ -28,7 +29,7 @@ public class InfoPanel extends JPanel implements ActionListener {
 		gapWidth = new JTextField("0.0", 6);
 		angle = new JTextField("0.0", 8);
 		submit = new JButton("Done");
-		
+		//sets them to be unmodifiable for now
 		velX.setEnabled(false);
 		velY.setEnabled(false);
 		posX.setEnabled(false);

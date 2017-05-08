@@ -19,15 +19,18 @@ public class GamePanel extends JPanel {
 		setLayout(null);
 		game.setBackground(new Color(60, 60, 80));
 		setSize(960, 540);	
+		//sets game panel, info panel, and notepad panel
 		game.setBounds(0, 0, 960, 400);
 		info.setBounds(0, 400, 480, 140);
 		notepad.setBounds(480, 400, 480, 140);
+		//adds them to the JPanel
 		add(game);
 		add(notepad);
 		add(info);
 	}
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        //checks if on the checkpoint or not, if not, repeatedly change the values
         if(!onCheckpoint) {
 	        info.velX.setText(String.format("%.2f", game.player.velX));
 	        info.velY.setText(String.format("%.2f", game.player.velY));
@@ -35,15 +38,13 @@ public class GamePanel extends JPanel {
 	        info.posY.setText(String.format("%.2f", game.player.y / Player.PPM));
         }
 	}
+	//checks if currently touching a checkpoint
 	public void checkpointHit() {
 		game.shouldRequest = false;
 		onCheckpoint = true;
+		//sets the info boxes to how the problem is layed out
         info.velX.setEnabled(true);
         info.velY.setEnabled(true);
-//        info.posX.setEnabled(true);
-//        info.posY.setEnabled(true);
-//        info.gapWidth.setEnabled(true);
-//        info.angle.setEnabled(true);
         info.submit.setEnabled(true);
         info.velX.setText("0.0");
         info.velY.setText("0.0");

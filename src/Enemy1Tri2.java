@@ -1,6 +1,7 @@
 import java.awt.Graphics;
-
+//right leg of enemy1
 public class Enemy1Tri2 {
+	//field variables
 	private final static int PPM = 150;
 	protected int x, y;
 	//small gap before the legs are drawn
@@ -14,9 +15,8 @@ public class Enemy1Tri2 {
 		this.x = x;
 		this.y = y;
 	}
-	
+	//draws the right leg in a place proportional to the body
 	public void draw(Graphics g) {
-//		x -= 2;
 		yVals = new int[]{y + HEIGHT, y, y + HEIGHT};
 		xValsR = new int[]{x + LEG_WIDTH + LEG_GAP, x + LEG_WIDTH + (LEG_WIDTH / 2) + LEG_GAP, x + 2 * LEG_WIDTH + LEG_GAP};
 		g.fillPolygon(xValsR, yVals, 3);
