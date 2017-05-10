@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -57,14 +58,27 @@ public class LevelMap {
 		in.nextLine();
 		
 		map = new Tile[height][width];
+		for(int i = 0; i < height; i++) {
+			Arrays.fill(map[i], new Tile());
+		}
+		int row = -1;
 		try
 		{
-			for(int row = 0; row < height; row++) 
+			while(in.hasNextLine())
 			{ 
+				row++;
 				//row is ycoord
-				String line = in.nextLine();
-				for(int col = 0; col < width; col++) 
-				{ 
+				String line = "";
+				if(in.hasNextLine()) {
+					line = in.nextLine();
+//					line = line.length() < width ? line : line.substring(0, width);
+				}
+				else
+					break;
+				System.out.println(line);
+				System.out.println(line.length());
+				for(int col = 0; col < line.length(); col++) 
+				 { 
 					//col is xcoord
 					char cTile = line.charAt(col);
 					//set x and y, add to map
@@ -90,6 +104,7 @@ public class LevelMap {
 						app.xEnemy1.add(col * Tile.WIDTH);
 						app.yEnemy1.add(row * Tile.HEIGHT + 35);
 					}
+					System.out.println(col);
 					map[row][col] = t;
 					//assign image type based on char
 				}
@@ -157,14 +172,18 @@ public class LevelMap {
 			player.x = playerCol * Tile.WIDTH;
 		}
 		
-		for(int i = 0; i < checkpoints.size(); i++) {
-			Tile ct = checkpoints.get(i);
-			if(pBounds.intersects(ct.bounds)) {
-				player.x = ct.bounds.x;
-				player.y = ct.bounds.y;
-				player.velX = 0;
-				player.velY = 0;
-				app.game.checkpointHit(); //triggered
+		//for(int i = 0; i < checkpoints.size(); i++) {
+		if(checkpoints.size() > 0) {
+			Tile ct = checkpoints.get(0);//.get(i);
+			if(pBounds.intersects(ct.bounds)) { //snap to checkpoint
+				if(!app.game.onCheckpoint) {
+					player.x = ct.bounds.x;
+					player.y = ct.bounds.y;
+					player.velX = 0;
+					player.velY = 0;
+				}
+				checkpoints.remove(0);
+				app.game.checkpointHit();
 			}
 		}
 	}

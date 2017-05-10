@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 {
 	//field variables
 	public static Timer loop;
+	protected final int PPM = 120;
 	protected final int WIDTH = 960;
 	protected final int HEIGHT = 540;
 	protected int level, maxLevel, frameAt;
@@ -40,13 +42,13 @@ public class PhysicsDash extends JFrame implements ActionListener
 		setVisible(true);
 		//initialize things
 		level = 1;
-		maxLevel = 1;
+		maxLevel = 2;
 		charName = "deltVdeltT";
 		character = null;
 		//makes class objects
 		credits = new CreditsAndStats(this);
 		levelSelect = new LevelSelector(this);
-		instructions = new Instructions();
+		instructions = new Instructions(this);
 		game = new GamePanel(this);
 		home = new HomeScreen(this);
 		//sets the content pane
@@ -71,6 +73,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		
 //		System.out.println(frameAt);
 		frameAt++;
 		repaint();

@@ -38,7 +38,7 @@ public class Game extends JPanel {
 		}
 	}
 	public void makeEnemy(Graphics g, int x, int y) {
-		//this is actually very laggy :(
+		//this is actually hella laggy :(
 		rotate += 0.1;
 		Graphics2D g2d = (Graphics2D)g;
 		Enemy1 e1 = new Enemy1(x, y, app);
@@ -68,7 +68,7 @@ public class Game extends JPanel {
 		
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.scale(400.0/540.0, 400.0/540.0);
-	    g2d.translate((int)  (app.WIDTH - player.w)/2 - player.x, 0);
+	    g2d.translate((int)  (app.WIDTH - player.w)/2 - player.x, (int) (app.HEIGHT - player.h)/2 - player.y);
 		g.setColor(new Color(175, 60, 0));
 		//player generation
 		player.draw(g, map);

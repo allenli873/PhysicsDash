@@ -1,4 +1,8 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,6 +12,7 @@ import javax.swing.JPanel;
 public class HomeScreen extends JPanel implements ActionListener {
 	//field variables
 	private PhysicsDash app;
+	private Image logo;
 	private JButton play, instructions, credits;
 	//constructor
 	public HomeScreen(PhysicsDash app) {
@@ -16,7 +21,10 @@ public class HomeScreen extends JPanel implements ActionListener {
 		
 		setSize(app.WIDTH, app.HEIGHT);
 		setLayout(null);
-		
+		app.charName = "PhysicsDash";
+		app.getMyImage();
+		app.charName = "deltVdeltT";
+		logo = app.character;
 		int width = 400;
 		int height = 275;
 		//container panel
@@ -36,19 +44,26 @@ public class HomeScreen extends JPanel implements ActionListener {
 		container.add(credits);
 		//adds the panel
 		add(container);
+		
 	}
 	//sees which button is selected
 	public void actionPerformed(ActionEvent e) {
 		String text = e.getActionCommand();
-		if(text.equals("Play")) {
+		if(text.equals("Play")) 
 			app.setContentPane(app.levelSelect);
-		}
-		else if(text.equals("Instructions")) {
-			System.out.println("hi");
+		
+		else if(text.equals("Instructions")) 
 			app.setContentPane(app.instructions);
-		}
-		else if(text.equals("Credits")) {
+		
+		else if(text.equals("Credits")) 
 			app.setContentPane(app.credits);
-		}
+	}
+	public void paintComponent(Graphics g) {
+		app.charName = "deltVdeltT";
+		app.getMyImage();
+		Image len = app.character;
+		g.drawImage(len, 750, 250, app.PPM, app.PPM, null);
+		g.drawImage(logo, 163, 50, 634, 84, this);
+		Graphics2D g2d = (Graphics2D)g;
 	}
 }
