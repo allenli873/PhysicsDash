@@ -1,12 +1,7 @@
-<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-=======
-import java.awt.event.*;
-import java.awt.event.*;
->>>>>>> origin/master
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -49,7 +44,6 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 		deltaY = new JTextField("0.0", 5);
 		submit = new JButton("Done");
 		
-<<<<<<< HEAD
 		velX.setEnabled(false);
 		velY.setEnabled(false);
 		posX.setEnabled(false);
@@ -57,9 +51,7 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 		gapWidth.setEnabled(false);
 		angle.setEnabled(false);
 		submit.setEnabled(false);
-=======
 		reset();
->>>>>>> origin/master
 		
 		submit.addActionListener(this);
 		

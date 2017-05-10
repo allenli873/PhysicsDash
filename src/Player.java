@@ -11,11 +11,7 @@ public class Player implements KeyListener {
 	private PhysicsDash app;
 	private Image character;
 	public boolean jumped = false;
-<<<<<<< HEAD
 	protected boolean left, right;
-=======
-	public boolean left, right;
->>>>>>> origin/master
 	protected float x, y;
 	protected int w, h;
 	
@@ -50,7 +46,6 @@ public class Player implements KeyListener {
 				velX = velX < 0 ? velX + 0.02f : velX - 0.02f;
 			}
 		}
-<<<<<<< HEAD
 		
 		if(Math.abs(velX) < 0.02)
 			velX = 0;
@@ -58,10 +53,8 @@ public class Player implements KeyListener {
 //		if(y > 600)
 //			app.playerDies();
 		
-=======
 		if(Math.abs(velX) < 0.02)
 			velX = 0;
->>>>>>> origin/master
 		x += velX * step * PPM;
 		y += velY * step * PPM;
 		map.step(g);
@@ -79,22 +72,19 @@ public class Player implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
 		//code for left
-<<<<<<< HEAD
 		if((code == KeyEvent.VK_LEFT || code == KeyEvent.VK_A) && !app.game.onCheckpoint)
 			left = true;
 		//code for right
 		if((code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_D) && !app.game.onCheckpoint)
 			right = true;
-		if((code == KeyEvent.VK_UP || code == KeyEvent.VK_W) && !app.game.onCheckpoint) {
-=======
-		if(code == KeyEvent.VK_LEFT && !app.game.onCheckpoint)
-			left = true;
+		if((code == KeyEvent.VK_UP || code == KeyEvent.VK_W) && !app.game.onCheckpoint)
+			if(code == KeyEvent.VK_LEFT && !app.game.onCheckpoint)
+				left = true;
 		//code for right
 		if(code == KeyEvent.VK_RIGHT && !app.game.onCheckpoint)
 			right = true;
 		int c = e.getKeyCode();
 		if(c == KeyEvent.VK_UP && !app.game.onCheckpoint) {
->>>>>>> origin/master
 			if(!jumped) {
 				app.numJumps++;
 				velY = -4;

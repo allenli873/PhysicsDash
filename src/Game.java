@@ -67,12 +67,10 @@ public class Game extends JPanel {
 		if(shouldRequest) requestFocusInWindow();
 		
 		Graphics2D g2d = (Graphics2D) g;
+		
 		g2d.scale(400.0/540.0, 400.0/540.0);
-<<<<<<< HEAD
-	    g2d.translate((int)  (app.WIDTH - player.w)/2 - player.x, (int) (app.HEIGHT - player.h)/2 - player.y);
-=======
-		g2d.translate((int)  (app.WIDTH - player.w)/2 - player.x, 0);
->>>>>>> origin/master
+		g2d.translate((int)  (app.WIDTH - player.w)/2 - player.x, (int) (app.HEIGHT - player.h)/2 - player.y);
+	    
 		g.setColor(new Color(175, 60, 0));
 		//player generation
 		player.draw(g, map);

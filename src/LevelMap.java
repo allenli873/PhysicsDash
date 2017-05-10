@@ -114,9 +114,9 @@ public class LevelMap {
 		}
 		
 		for(int col = 0; col < width; col++) {
-			for(int row = 0; row < height; row++) {
-				if(map[row][col].type == Tile.CHECKPOINT) {
-					checkpoints.add(map[row][col]);
+			for(int r = 0; r < height; r++) {
+				if(map[r][col].type == Tile.CHECKPOINT) {
+					checkpoints.add(map[r][col]);
 				}
 			}
 		}
