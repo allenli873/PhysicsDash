@@ -96,7 +96,6 @@ public class LevelMap {
 					}
 					else if(cTile == '|') 
 					{
-						checkpoints.add(t);
 						t.type = Tile.CHECKPOINT;
 					}
 					else if(cTile == '1') 
@@ -112,6 +111,14 @@ public class LevelMap {
 		} catch(StringIndexOutOfBoundsException e) {
 			System.err.println("Error: You're retarded and you made the level wrong."); 
 			System.exit(1);
+		}
+		
+		for(int col = 0; col < width; col++) {
+			for(int row = 0; row < height; row++) {
+				if(map[row][col].type == Tile.CHECKPOINT) {
+					checkpoints.add(map[row][col]);
+				}
+			}
 		}
 	}
 	

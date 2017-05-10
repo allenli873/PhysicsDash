@@ -69,7 +69,6 @@ public class PhysicsDash extends JFrame implements ActionListener
 	public void playerDies() {
 		//put something actual here later
 		System.out.println("player dies");
-		System.exit(0);
 	}
 	
 	public void actionPerformed(ActionEvent e) {

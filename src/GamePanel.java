@@ -11,6 +11,10 @@ public class GamePanel extends JPanel {
 	private InfoPanel info;
 	public boolean onCheckpoint;
 	public boolean checkpointJump;
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 	public GamePanel(PhysicsDash p) {
 		app = p;
 		game = new Game(p);
@@ -36,10 +40,30 @@ public class GamePanel extends JPanel {
 	        info.posY.setText(String.format("%.2f", game.player.y / Player.PPM));
         }
 	}
+<<<<<<< HEAD
+=======
+	
+	public void landed() {
+		checkpointJump = false;
+		game.shouldRequest = true;
+		onCheckpoint = false;
+		info.reset();
+	}
+	
+>>>>>>> origin/master
 	public void checkpointHit() {
 		game.shouldRequest = false;
 		game.player.left = false;
 		game.player.right = false;
+<<<<<<< HEAD
+=======
+//        info.velX.setEnabled(true);
+//        info.velY.setEnabled(true);
+//        info.posX.setEnabled(true);
+//        info.posY.setEnabled(true);
+//        info.gapWidth.setEnabled(true);
+//        info.angle.setEnabled(true);
+>>>>>>> origin/master
 		if(!onCheckpoint) {
 			info.submit.setEnabled(true);
 			info.velX.setText("0.0");
@@ -49,9 +73,13 @@ public class GamePanel extends JPanel {
 			info.angle.setText("30 deg");
 		}
         onCheckpoint = true;
+<<<<<<< HEAD
 	}
 	
 	public void landed() {
 		
+=======
+        //PhysicsDash.loop.stop();
+>>>>>>> origin/master
 	}
 }
