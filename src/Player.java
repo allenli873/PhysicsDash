@@ -11,7 +11,7 @@ public class Player implements KeyListener {
 	private PhysicsDash app;
 	private Image character;
 	public boolean jumped = false;
-	private boolean left, right;
+	public boolean left, right;
 	protected float x, y;
 	protected int w, h;
 	
@@ -32,30 +32,31 @@ public class Player implements KeyListener {
 	
 	//draws the character in the ever changing X/Y positions
 	public void draw(Graphics g, LevelMap map) {
-		//checks if right or left was pressed
+
+		g.drawImage(character, (int) x, (int) y, w, h, null);
 		
 		//friction
 		if(velX - 0.02 != 0 && !jumped)
-			velX = velX < 0 ? velX + 0.02f : velX - 0.02f;
-		
+		{
+			if(app.game.checkpointJump) {
+				velX = 0;
+				app.game.landed();
+			}
+			else {
+				velX = velX < 0 ? velX + 0.02f : velX - 0.02f;
+			}
+		}
 		if(Math.abs(velX) < 0.02)
 			velX = 0;
-		
 		x += velX * step * PPM;
 		y += velY * step * PPM;
 		map.step(g);
-//		System.out.println(y);
-		if(y > 600)
-			app.playerDies();
 		if(right) 
 			if(velX < 3f)
 				velX += 0.07f;
-		
 		if(left) 
 			if(velX > -3f)
 				velX -= 0.07f;
-		
-		g.drawImage(character, (int) x, (int) y, w, h, null);
 		velY += grav * step;
 	}
 	//makes sure character only jumps one time, jump by pressing up arrow
@@ -64,13 +65,13 @@ public class Player implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
 		//code for left
-		if(code == KeyEvent.VK_LEFT)
+		if(code == KeyEvent.VK_LEFT && !app.game.onCheckpoint)
 			left = true;
 		//code for right
-		if(code == KeyEvent.VK_RIGHT)
+		if(code == KeyEvent.VK_RIGHT && !app.game.onCheckpoint)
 			right = true;
 		int c = e.getKeyCode();
-		if(c == KeyEvent.VK_UP) {
+		if(c == KeyEvent.VK_UP && !app.game.onCheckpoint) {
 			if(!jumped) {
 				app.numJumps++;
 				velY = -4;

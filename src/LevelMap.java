@@ -82,7 +82,6 @@ public class LevelMap {
 					}
 					else if(cTile == '|') 
 					{
-						checkpoints.add(t);
 						t.type = Tile.CHECKPOINT;
 					}
 					else if(cTile == '1') 
@@ -97,6 +96,14 @@ public class LevelMap {
 		} catch(StringIndexOutOfBoundsException e) {
 			System.err.println("Error: You're retarded and you made the level wrong."); 
 			System.exit(1);
+		}
+		
+		for(int col = 0; col < width; col++) {
+			for(int row = 0; row < height; row++) {
+				if(map[row][col].type == Tile.CHECKPOINT) {
+					checkpoints.add(map[row][col]);
+				}
+			}
 		}
 	}
 	
@@ -157,14 +164,18 @@ public class LevelMap {
 			player.x = playerCol * Tile.WIDTH;
 		}
 		
-		for(int i = 0; i < checkpoints.size(); i++) {
-			Tile ct = checkpoints.get(i);
-			if(pBounds.intersects(ct.bounds)) {
-				player.x = ct.bounds.x;
-				player.y = ct.bounds.y;
-				player.velX = 0;
-				player.velY = 0;
-				app.game.checkpointHit(); //triggered
+		//for(int i = 0; i < checkpoints.size(); i++) {
+		if(checkpoints.size() > 0) {
+			Tile ct = checkpoints.get(0);//.get(i);
+			if(pBounds.intersects(ct.bounds)) { //snap to checkpoint
+				if(!app.game.onCheckpoint) {
+					player.x = ct.bounds.x;
+					player.y = ct.bounds.y;
+					player.velX = 0;
+					player.velY = 0;
+				}
+				checkpoints.remove(0);
+				app.game.checkpointHit();
 			}
 		}
 	}
