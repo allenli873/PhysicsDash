@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -20,6 +21,7 @@ public class HomeScreen extends JPanel implements ActionListener {
 		
 		setSize(app.WIDTH, app.HEIGHT);
 		setLayout(null);
+		setBackground(Color.ORANGE);
 		app.charName = "PhysicsDash";
 		app.getMyImage();
 		app.charName = "deltVdeltT";
@@ -28,6 +30,7 @@ public class HomeScreen extends JPanel implements ActionListener {
 		int height = 275;
 		//container panel
 		JPanel container = new JPanel();
+		container.setBackground(Color.ORANGE);
 		container.setLayout(new GridLayout(0, 1, 0, 30));
 		container.setBounds((app.WIDTH - width)/2, 60 + (app.HEIGHT - height)/2, width, height);
 		//selecting the different options for panels on home screen
@@ -58,6 +61,7 @@ public class HomeScreen extends JPanel implements ActionListener {
 			app.setContentPane(app.credits);
 	}
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		app.charName = "deltVdeltT";
 		app.getMyImage();
 		Image len = app.character;
