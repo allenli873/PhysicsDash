@@ -18,7 +18,7 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 	protected static Timer timer;
 	protected PhysicsDash app;
 	protected String currentText;
-	protected int frame;
+	protected static int frame;
 	//delay before text starts going
 	private final int DELAY = 12;
 	//width and height of the level
@@ -43,6 +43,7 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 		addMouseMotionListener(this);
 	}
 	public static void dead() {
+		frame = 0;
 		timer.start();
 	}
 	public void paintComponent(Graphics g) {
@@ -76,29 +77,34 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 			currentText += app.deathText.charAt(frame - DELAY);
 		}
 	}
+	/*
+	 * Checks if clicked inside of home or try again
+	 */
 	public void mouseClicked(MouseEvent e) {
-		//check if they clicked inside of home
 		int x = e.getX();
 		int y = e.getY();
-		if(frame > ALLOW_ACTION)
+		if(frame > ALLOW_ACTION) {
+			//check if they clicked inside of home
 			if(x > 275 && x < 4 * LETTER_WIDTH + 275) 
 				if(y > 450 - LETTER_HEIGHT && y < 450) {
 					app.setContentPane(app.home);
 					Game.dying = false;
 					LevelMap.stepOn = true;
 				}
+			//check if clicked inside of try again
+			if(x > 575 && x < 9 * LETTER_WIDTH + 575)
+				if(y > 450 - LETTER_HEIGHT && y < 450) {
+					app.setContentPane(app.game);
+					Game.dying = false;
+					LevelMap.stepOn = true;
+				}
+		}
 	}
 	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
-	public void mouseEntered(MouseEvent e) {
-	}
+	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
+	public void mouseDragged(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
@@ -108,4 +114,5 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 				if(y > 450 - LETTER_HEIGHT && y < 450)
 					homeColor = Color.YELLOW;
 	}
+	
 }

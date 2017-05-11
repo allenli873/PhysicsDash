@@ -23,6 +23,7 @@ public class LevelMap {
 	private PhysicsDash app;
 	private ArrayList<Tile> checkpoints;
 	protected int levelHeight;
+	protected int initPosX, initPosY;
 	public static boolean stepOn = true;
 	public LevelMap(Player _player, int level, Game game, PhysicsDash p) {
 		checkpoints = new ArrayList<Tile>();
@@ -92,6 +93,8 @@ public class LevelMap {
 					{
 						player.x = col * Tile.WIDTH;
 						player.y = row * Tile.HEIGHT;
+						initPosX = col * Tile.WIDTH;
+						initPosY = row * Tile.HEIGHT;
 					}
 					else if(cTile == '|') 
 					{
