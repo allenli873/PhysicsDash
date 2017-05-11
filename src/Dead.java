@@ -7,13 +7,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Dead extends JPanel implements ActionListener, MouseListener {
+public class Dead extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
 	protected static Timer timer;
 	protected PhysicsDash app;
 	protected String currentText;
@@ -25,6 +26,10 @@ public class Dead extends JPanel implements ActionListener, MouseListener {
 	private final int LETTER_HEIGHT = 22;
 	//the frame I allow the user to do something
 	private final int ALLOW_ACTION = 50;
+	
+	private Color homeColor;
+	private Color tryColor;
+	
 	public Dead(PhysicsDash p) {
 		currentText = "";
 		frame = 0;
@@ -32,7 +37,10 @@ public class Dead extends JPanel implements ActionListener, MouseListener {
 		timer = new Timer(75, this);
 		setSize(960, 540);
 		setBackground(Color.BLACK);
+		homeColor = Color.WHITE;
+		tryColor = Color.WHITE;		
 		addMouseListener(this);
+		addMouseMotionListener(this);
 	}
 	public static void dead() {
 		timer.start();
@@ -55,7 +63,9 @@ public class Dead extends JPanel implements ActionListener, MouseListener {
 		g.setFont(gameOver);
 		g.drawString(currentText, 50, 300);
 		if(frame > ALLOW_ACTION) {
+			g.setColor(homeColor);
 			g.drawString("Home", 275, 450);
+			g.setColor(tryColor);
 			g.drawString("Try Again", 575, 450);
 		}
 	}
@@ -80,4 +90,19 @@ public class Dead extends JPanel implements ActionListener, MouseListener {
 	public void mouseEntered(MouseEvent e) {
 	}
 	public void mouseExited(MouseEvent e) {}
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		homeColor = Color.WHITE;
+		if(frame > ALLOW_ACTION)
+			if(x > 275 && x < 4 * LETTER_WIDTH + 275) 
+				if(y > 450 - LETTER_HEIGHT && y < 450)
+					homeColor = Color.YELLOW;
+	}
 }
