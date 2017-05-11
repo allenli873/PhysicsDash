@@ -22,6 +22,7 @@ public class LevelMap {
 	private Player player;
 	private PhysicsDash app;
 	private ArrayList<Tile> checkpoints;
+	protected int levelHeight;
 	public LevelMap(Player _player, int level, Game game, PhysicsDash p) {
 		checkpoints = new ArrayList<Tile>();
 		app = p;
@@ -56,7 +57,7 @@ public class LevelMap {
 		int width = in.nextInt(); //read in width and height of level
 		int height = in.nextInt();
 		in.nextLine();
-		
+		levelHeight = (height * 120) + 240;
 		map = new Tile[height][width];
 		for(int i = 0; i < height; i++) {
 			Arrays.fill(map[i], new Tile());
@@ -71,12 +72,9 @@ public class LevelMap {
 				String line = "";
 				if(in.hasNextLine()) {
 					line = in.nextLine();
-//					line = line.length() < width ? line : line.substring(0, width);
 				}
 				else
 					break;
-				System.out.println(line);
-				System.out.println(line.length());
 				for(int col = 0; col < line.length(); col++) 
 				 { 
 					//col is xcoord

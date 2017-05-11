@@ -16,8 +16,8 @@ public class Game extends JPanel {
 	private PhysicsDash app;
 	private LevelMap map;
 	protected Player player;
-	public boolean shouldRequest;
-	
+	public boolean shouldRequest, dying;
+	private int freezeX, freezeY;
 	
 	private Image ground;
 	//constructor
@@ -69,7 +69,17 @@ public class Game extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 		
 		g2d.scale(400.0/540.0, 400.0/540.0);
-		g2d.translate((int)  (app.WIDTH - player.w)/2 - player.x, (int) (app.HEIGHT - player.h)/2 - player.y);
+		if(player.y < map.levelHeight - 720 && !dying)
+			g2d.translate((int)  (app.WIDTH - player.w)/2 - player.x, (int) (app.HEIGHT - player.h)/2 - player.y);
+		else if(!dying) {
+			dying = true;
+			freezeX = (int)  ((app.WIDTH - player.w)/2 - player.x);
+			freezeY = (int) ((app.HEIGHT - player.h)/2 - player.y);
+			g2d.translate(freezeX, freezeY);
+		}
+		else {
+			g2d.translate(freezeX, freezeY);
+		}
 	    
 		g.setColor(new Color(175, 60, 0));
 		//player generation

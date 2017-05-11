@@ -1,11 +1,12 @@
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -23,11 +24,11 @@ public class PhysicsDash extends JFrame implements ActionListener
 	protected int level, maxLevel, frameAt;
 	//statistic variables
 	protected int numJumps;
-	protected String charName;
+	protected String charName, deathText;
 	protected Image character;
 	protected List<Integer> xEnemy1, yEnemy1;
 	//the panels of our game
-	public JPanel home, credits, levelSelect, instructions;
+	public JPanel home, credits, levelSelect, instructions, dead;
 	public GamePanel game;
 	//constructor
 	public PhysicsDash()
@@ -51,6 +52,8 @@ public class PhysicsDash extends JFrame implements ActionListener
 		instructions = new Instructions(this);
 		game = new GamePanel(this);
 		home = new HomeScreen(this);
+		dead = new Dead(this);
+		
 		//sets the content pane
 		setContentPane(home);
 	}
@@ -68,7 +71,17 @@ public class PhysicsDash extends JFrame implements ActionListener
 	
 	public void playerDies() {
 		//put something actual here later
-		System.out.println("player dies");
+		Scanner in = null;
+		try {
+			in = new Scanner(new File("deathText.txt"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+		deathText = in.nextLine();
+		//starts the death animating
+		Dead.dead();
+		setContentPane(dead);
 	}
 	
 	public void actionPerformed(ActionEvent e) {

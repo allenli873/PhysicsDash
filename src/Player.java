@@ -50,9 +50,8 @@ public class Player implements KeyListener {
 		if(Math.abs(velX) < 0.02)
 			velX = 0;
 		
-//		if(y > 600)
-//			app.playerDies();
-		
+		if(y > map.levelHeight)
+			app.playerDies();
 		if(Math.abs(velX) < 0.02)
 			velX = 0;
 		x += velX * step * PPM;
