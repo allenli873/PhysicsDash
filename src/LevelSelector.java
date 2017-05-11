@@ -1,9 +1,11 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 //the level selector portion
 public class LevelSelector extends JPanel implements ActionListener
@@ -16,13 +18,20 @@ public class LevelSelector extends JPanel implements ActionListener
 	{
 		this.app = app;
 		setSize(app.WIDTH, app.HEIGHT);
-		setBackground(Color.BLUE);
+		setBackground(new Color(255, 100, 0));
 		setLayout(null);
-		add(new Levels());
+		
+		JLabel title = new JLabel("Level Select");
+		Font font = new Font(Font.MONOSPACED, Font.BOLD, 50);
+		title.setFont(font);
+		title.setBounds(5, 5, 960, 50);
+		Levels lvls = new Levels();
 		JButton back = new JButton("Back");
+		add(title);
+		add(new Levels());
 		add(back);
 		back.addActionListener(this);
-		back.setBounds(50, 475, 150, 40);
+		back.setBounds(780, 450, 150, 40);
 	}
 	public void actionPerformed(ActionEvent e) {
 		app.setContentPane(app.home);
@@ -33,9 +42,9 @@ public class LevelSelector extends JPanel implements ActionListener
 	{
 		public Levels() 
 		{
-			setBackground(Color.BLUE);
+			setBackground(new Color(255, 100, 0));
 			//sets where the button panel is
-			setBounds((app.WIDTH - LEVELS_WIDTH)/2, (app.HEIGHT - LEVELS_WIDTH)/2, LEVELS_WIDTH, LEVELS_WIDTH);
+			setBounds((app.WIDTH - LEVELS_WIDTH)/2, 75, LEVELS_WIDTH, LEVELS_WIDTH);
 			//adds in buttons and their action listeners
 			for(int i = 0; i < 9; i++) 
 			{
