@@ -9,7 +9,7 @@ public class Player implements KeyListener {
 	public static final float PPM = 120; //ppm is how many pixels represent one meter
 	//field variables
 	private PhysicsDash app;
-	private Image character;
+	protected Image character;
 	public boolean jumped = false;
 	protected boolean left, right;
 	protected float x, y;

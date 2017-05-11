@@ -82,8 +82,11 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 		int y = e.getY();
 		if(frame > ALLOW_ACTION)
 			if(x > 275 && x < 4 * LETTER_WIDTH + 275) 
-				if(y > 450 - LETTER_HEIGHT && y < 450)
+				if(y > 450 - LETTER_HEIGHT && y < 450) {
 					app.setContentPane(app.home);
+					Game.dying = false;
+					LevelMap.stepOn = true;
+				}
 	}
 	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}

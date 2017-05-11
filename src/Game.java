@@ -16,7 +16,8 @@ public class Game extends JPanel {
 	private PhysicsDash app;
 	private LevelMap map;
 	protected Player player;
-	public boolean shouldRequest, dying;
+	public boolean shouldRequest;
+	public static boolean dying;
 	private int freezeX, freezeY;
 	
 	private Image ground;
@@ -56,8 +57,14 @@ public class Game extends JPanel {
 		Rectangle playHit = new Rectangle((int)player.x, (int)player.y, player.w, player.h);
 		Rectangle enemy1Hit = new Rectangle(e1.x, e1.y, e1.WIDTH, e1.HEIGHT * 3 / 2);
 		//checks if player hitbox hits the enemy hitbox
-		if(playHit.intersects(enemy1Hit))
-			app.playerDies();
+		if(playHit.intersects(enemy1Hit)) {
+			app.charName = "dead";
+			app.getMyImage();
+			player.character = app.character;
+			player.velY = -5;
+			LevelMap.stepOn = false;
+		}
+//			app.playerDies();
 	}
 	
 	//the paintComponent
@@ -76,6 +83,7 @@ public class Game extends JPanel {
 			freezeX = (int)  ((app.WIDTH - player.w)/2 - player.x);
 			freezeY = (int) ((app.HEIGHT - player.h)/2 - player.y);
 			g2d.translate(freezeX, freezeY);
+			player.velX = 0;
 		}
 		else {
 			g2d.translate(freezeX, freezeY);

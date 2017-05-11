@@ -23,6 +23,7 @@ public class LevelMap {
 	private PhysicsDash app;
 	private ArrayList<Tile> checkpoints;
 	protected int levelHeight;
+	public static boolean stepOn = true;
 	public LevelMap(Player _player, int level, Game game, PhysicsDash p) {
 		checkpoints = new ArrayList<Tile>();
 		app = p;
@@ -150,45 +151,47 @@ public class LevelMap {
 	//3. compare intersection to tiles around player
 	//4. set velX or velY to 0 based on intersection
 	public void step(Graphics g) { //simulate collisions 
-		this.g = g;
-		Rectangle pBounds = new Rectangle((int) player.x, (int) player.y, player.w, player.h);
-		int playerRow = (int) (player.y / Tile.HEIGHT);
-		int playerRow2 = (int) Math.ceil(player.y / Tile.HEIGHT);
-		int playerCol = (int) (player.x / Tile.WIDTH);
-		int playerCol2 = (int) Math.ceil(player.x / Tile.WIDTH);
-		int dX = player.x % Tile.WIDTH > Tile.WIDTH/2 ? 1 : -1;
-		int dY = player.y % Tile.HEIGHT > Tile.HEIGHT/2 ? 1 : -1;
-		
-		if(intersects(playerRow + 1, playerCol, 1, 0) && player.velY > 0) {
-			player.jumped = false;
-			player.velY = 0;
-			player.y = playerRow * Tile.HEIGHT;
-		}
-		if(intersects(playerRow2 - 1, playerCol, 1, 0) && player.velY < 0) { //up
-			player.velY = 0;
-			player.y = playerRow2 * Tile.HEIGHT;
-		}
-		if(intersects(playerRow, playerCol2 - 1, 0, 1) && player.velX < 0) { //left
-			player.velX = 0;
-			player.x = playerCol2 * Tile.WIDTH;
-		}
-		if(intersects(playerRow, playerCol + 1, 0, 1) && player.velX > 0) { //right
-			player.velX = 0;
-			player.x = playerCol * Tile.WIDTH;
-		}
-		
-		//for(int i = 0; i < checkpoints.size(); i++) {
-		if(checkpoints.size() > 0) {
-			Tile ct = checkpoints.get(0);//.get(i);
-			if(pBounds.intersects(ct.bounds)) { //snap to checkpoint
-				if(!app.game.onCheckpoint) {
-					player.x = ct.bounds.x;
-					player.y = ct.bounds.y;
-					player.velX = 0;
-					player.velY = 0;
+		if(stepOn) {
+			this.g = g;
+			Rectangle pBounds = new Rectangle((int) player.x, (int) player.y, player.w, player.h);
+			int playerRow = (int) (player.y / Tile.HEIGHT);
+			int playerRow2 = (int) Math.ceil(player.y / Tile.HEIGHT);
+			int playerCol = (int) (player.x / Tile.WIDTH);
+			int playerCol2 = (int) Math.ceil(player.x / Tile.WIDTH);
+			int dX = player.x % Tile.WIDTH > Tile.WIDTH/2 ? 1 : -1;
+			int dY = player.y % Tile.HEIGHT > Tile.HEIGHT/2 ? 1 : -1;
+			
+			if(intersects(playerRow + 1, playerCol, 1, 0) && player.velY > 0) {
+				player.jumped = false;
+				player.velY = 0;
+				player.y = playerRow * Tile.HEIGHT;
+			}
+			if(intersects(playerRow2 - 1, playerCol, 1, 0) && player.velY < 0) { //up
+				player.velY = 0;
+				player.y = playerRow2 * Tile.HEIGHT;
+			}
+			if(intersects(playerRow, playerCol2 - 1, 0, 1) && player.velX < 0) { //left
+				player.velX = 0;
+				player.x = playerCol2 * Tile.WIDTH;
+			}
+			if(intersects(playerRow, playerCol + 1, 0, 1) && player.velX > 0) { //right
+				player.velX = 0;
+				player.x = playerCol * Tile.WIDTH;
+			}
+			
+			//for(int i = 0; i < checkpoints.size(); i++) {
+			if(checkpoints.size() > 0) {
+				Tile ct = checkpoints.get(0);//.get(i);
+				if(pBounds.intersects(ct.bounds)) { //snap to checkpoint
+					if(!app.game.onCheckpoint) {
+						player.x = ct.bounds.x;
+						player.y = ct.bounds.y;
+						player.velX = 0;
+						player.velY = 0;
+					}
+					checkpoints.remove(0);
+					app.game.checkpointHit();
 				}
-				checkpoints.remove(0);
-				app.game.checkpointHit();
 			}
 		}
 	}
