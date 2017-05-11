@@ -67,6 +67,8 @@ public class Instructions extends JPanel implements ActionListener {
 		if(e.getActionCommand().equals("Finish")) {
 			app.setContentPane(app.home);
 			lastSlide = false;
+			nextButton.setText("Next");
+			slideNum = 1;
 		}
 		
 		if(e.getActionCommand().equals("Next")) {
