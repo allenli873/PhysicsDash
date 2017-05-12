@@ -17,7 +17,7 @@ import javax.swing.Timer;
 public class Dead extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
 	protected static Timer timer;
 	protected PhysicsDash app;
-	protected String currentText;
+	protected static String currentText;
 	protected static int frame;
 	//delay before text starts going
 	private final int DELAY = 12;
@@ -43,6 +43,7 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 		addMouseMotionListener(this);
 	}
 	public static void dead() {
+		currentText = "";
 		frame = 0;
 		timer.start();
 	}

@@ -42,7 +42,6 @@ public class GamePanel extends JPanel {
 		onCheckpoint = false;
 		info.reset();
 	}
-	
 	public void checkpointHit() {
 		game.shouldRequest = false;
 		game.player.left = false;

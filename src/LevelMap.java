@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 //
 //loads map, handles collisions
 public class LevelMap {
-
+	protected int checkNum;
 	private Tile[][] map; //2d array of tiles makes up the map
 	private Graphics g;
 	private Game game;
@@ -26,6 +26,7 @@ public class LevelMap {
 	protected int initPosX, initPosY;
 	public static boolean stepOn = true;
 	public LevelMap(Player _player, int level, Game game, PhysicsDash p) {
+		checkNum = 0;
 		checkpoints = new ArrayList<Tile>();
 		app = p;
 		this.game = game;
@@ -74,6 +75,7 @@ public class LevelMap {
 				String line = "";
 				if(in.hasNextLine()) {
 					line = in.nextLine();
+					line = line.length() >= width ? line.substring(0, width) : line;
 				}
 				else
 					break;
@@ -105,7 +107,6 @@ public class LevelMap {
 						app.xEnemy1.add(col * Tile.WIDTH);
 						app.yEnemy1.add(row * Tile.HEIGHT + 35);
 					}
-					System.out.println(col);
 					map[row][col] = t;
 					//assign image type based on char
 				}
@@ -131,20 +132,16 @@ public class LevelMap {
 	private boolean intersects(int row, int col, int dx, int dy) 
 	{
 		g.setColor(Color.GREEN);
-		//g.fillRect(col * 60, row * 60, 60, 60);
 		if(!inBounds(row, col)) return false;
 		Tile t = map[row][col];
 		boolean int1 = t.type == Tile.BRICK && t.bounds.intersects(player.x, player.y, player.w, player.h);
 		if(int1) {
-			//System.out.println("INT1");
 			return true;
 		}
 		if(!inBounds(row + dy, col + dx)) return false;
 		t = map[row + dy][col + dx];
 		g.setColor(Color.RED);
-		//g.fillRect((col+dx) * 60, (row+dy) * 60, 60, 60);
 		boolean int2 = t.type == Tile.BRICK && t.bounds.intersects(player.x, player.y, player.w, player.h);
-		//System.out.println("int2: " + int2);
 		return int2;
 	}
 	 
@@ -183,8 +180,8 @@ public class LevelMap {
 			}
 			
 			//for(int i = 0; i < checkpoints.size(); i++) {
-			if(checkpoints.size() > 0) {
-				Tile ct = checkpoints.get(0);//.get(i);
+			if(checkNum < checkpoints.size()) {
+				Tile ct = checkpoints.get(checkNum);//.get(i);
 				if(pBounds.intersects(ct.bounds)) { //snap to checkpoint
 					if(!app.game.onCheckpoint) {
 						player.x = ct.bounds.x;
@@ -192,7 +189,7 @@ public class LevelMap {
 						player.velX = 0;
 						player.velY = 0;
 					}
-					checkpoints.remove(0);
+					checkNum++;
 					app.game.checkpointHit();
 				}
 			}

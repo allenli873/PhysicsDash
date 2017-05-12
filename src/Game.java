@@ -36,6 +36,8 @@ public class Game extends JPanel {
 		try {
 			ground = ImageIO.read(new File("basic128.png"));
 		} catch (IOException e) {
+			System.err.println("Error: could not find ground image");
+			System.exit(1);
 		}
 	}
 	public void makeEnemy(Graphics g, int x, int y) {

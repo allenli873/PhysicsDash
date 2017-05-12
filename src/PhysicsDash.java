@@ -24,6 +24,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 	protected int level, maxLevel, frameAt;
 	//statistic variables
 	protected int numJumps;
+	
 	protected String charName, deathText;
 	protected Image character;
 	protected List<Integer> xEnemy1, yEnemy1;
