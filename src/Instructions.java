@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 public class Instructions extends JPanel implements ActionListener {
 	
-	public static final int SLIDES = 2;
+	public static final int SLIDES = 3;
 	
 	//declare field variables
 	private JButton nextButton, backButton;
