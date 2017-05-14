@@ -88,7 +88,7 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 		String aText = angle.getText();
 		aText = aText.substring(0, aText.indexOf(' '));
 		System.out.println(aText);
-		float mag = Float.parseFloat(vel.getText());
+		float mag = Float.parseFloat(vel.getText()) - 0.1f;
 		float theta = (float) Math.toRadians(Double.parseDouble(aText));
 		player.velX = mag * (float) Math.cos(theta);
 		player.velY = -mag * (float) Math.sin(theta);

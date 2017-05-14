@@ -27,7 +27,6 @@ public class PhysicsDash extends JFrame implements ActionListener
 	protected ArrayList<Tile> checkpoints;
 	protected String charName, deathText;
 	protected Image character;
-	protected List<Integer> xEnemy1, yEnemy1;
 	//the panels of our game
 	public JPanel home, credits, levelSelect, instructions, dead;
 	public GamePanel game;
@@ -36,8 +35,6 @@ public class PhysicsDash extends JFrame implements ActionListener
 	{
 		numJumps = 0;
 		
-		xEnemy1 = new ArrayList<Integer>();
-		yEnemy1 = new ArrayList<Integer>();
 		//sets size to 960x540
 		setSize(WIDTH, HEIGHT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

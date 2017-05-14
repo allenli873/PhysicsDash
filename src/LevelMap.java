@@ -68,54 +68,48 @@ public class LevelMap {
 			Arrays.fill(map[i], new Tile());
 		}
 		int row = -1;
-		try
-		{
-			while(in.hasNextLine())
-			{ 
-				row++;
-				//row is ycoord
-				String line = "";
-				if(in.hasNextLine()) {
-					line = in.nextLine();
-					line = line.length() >= width ? line.substring(0, width) : line;
-				}
-				else
-					break;
-				for(int col = 0; col < line.length(); col++) 
-				 { 
-					//col is xcoord
-					char cTile = line.charAt(col);
-					//set x and y, add to map
-					Tile t = new Tile();
-					t.bounds.x = col * Tile.WIDTH;
-					t.bounds.y = row * Tile.HEIGHT;
-					if(cTile == '#') 
-					{
-						t.type = Tile.BRICK;
-					}
-					else if(cTile == 'P') 
-					{
-						player.x = col * Tile.WIDTH;
-						player.y = row * Tile.HEIGHT;
-						initPosX = col * Tile.WIDTH;
-						initPosY = row * Tile.HEIGHT;
-					}
-					else if(cTile == '|') 
-					{
-						t.type = Tile.CHECKPOINT;
-					}
-					else if(cTile == '1') 
-					{
-						app.xEnemy1.add(col * Tile.WIDTH);
-						app.yEnemy1.add(row * Tile.HEIGHT + 35);
-					}
-					map[row][col] = t;
-					//assign image type based on char
-				}
+		while(in.hasNextLine())
+		{ 
+			row++;
+			//row is ycoord
+			String line = "";
+			if(in.hasNextLine()) {
+				line = in.nextLine();
+				line = line.length() >= width ? line.substring(0, width) : line;
 			}
-		} catch(StringIndexOutOfBoundsException e) {
-			System.err.println("Error: You're retarded and you made the level wrong."); 
-			System.exit(1);
+			else
+				break;
+			for(int col = 0; col < line.length(); col++) 
+			 { 
+				//col is xcoord
+				char cTile = line.charAt(col);
+				//set x and y, add to map
+				Tile t = new Tile();
+				t.bounds.x = col * Tile.WIDTH;
+				t.bounds.y = row * Tile.HEIGHT;
+				if(cTile == '#') 
+				{
+					t.type = Tile.BRICK;
+				}
+				else if(cTile == 'P') 
+				{
+					player.x = col * Tile.WIDTH;
+					player.y = row * Tile.HEIGHT;
+					initPosX = col * Tile.WIDTH;
+					initPosY = row * Tile.HEIGHT;
+				}
+				else if(cTile == '|') 
+				{
+					t.type = Tile.CHECKPOINT;
+				}
+				else if(cTile == '1') 
+				{
+					game.xEnemy1.add(col * Tile.WIDTH);
+					game.yEnemy1.add(row * Tile.HEIGHT + 35);
+				}
+				map[row][col] = t;
+				//assign image type based on char
+			}
 		}
 		
 		for(int col = 0; col < width; col++) {

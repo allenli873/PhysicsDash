@@ -5,6 +5,8 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -15,6 +17,7 @@ public class Game extends JPanel {
 	private boolean left;
 	private PhysicsDash app;
 	private LevelMap map;
+	protected List<Integer> xEnemy1, yEnemy1;
 	protected Player player;
 	public boolean shouldRequest;
 	public static boolean dying;
@@ -27,6 +30,8 @@ public class Game extends JPanel {
 		app = p;
 		shouldRequest = true;
 		player = new Player(app);
+		xEnemy1 = new ArrayList<Integer>();
+		yEnemy1 = new ArrayList<Integer>();
 		map = new LevelMap(player, app.level, this, app);
 		loadGround();
 		addKeyListener(player);
@@ -65,6 +70,7 @@ public class Game extends JPanel {
 			app.getMyImage();
 			Player.character = app.character;
 			player.velY = -5;
+			player.velX = 0;
 			LevelMap.stepOn = false;
 		}
 //			app.playerDies();
@@ -97,13 +103,13 @@ public class Game extends JPanel {
 		player.draw(g, map);
 		map.draw(g);
 		//enemy generation
-		for(int i = 0; i < app.xEnemy1.size(); i++) {
-			makeEnemy(g, app.xEnemy1.get(i), app.yEnemy1.get(i));
-			if(app.xEnemy1.get(i) < 0 + (int)(Math.random() * 500))
+		for(int i = 0; i < xEnemy1.size(); i++) {
+			makeEnemy(g, xEnemy1.get(i), yEnemy1.get(i));
+			if(xEnemy1.get(i) < 0 + (int)(Math.random() * 500))
 				left = false;
-			if(app.xEnemy1.get(i) > LevelMap.width * 60 - (int)(Math.random() * 500))
+			if(xEnemy1.get(i) > LevelMap.width * 60 - (int)(Math.random() * 500))
 				left = true;
-			app.xEnemy1.set(i, left ? app.xEnemy1.get(i) - 1 : app.xEnemy1.get(i) + 1);
+			xEnemy1.set(i, left ? xEnemy1.get(i) - 1 : xEnemy1.get(i) + 1);
 		}
 		
 	}

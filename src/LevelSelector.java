@@ -26,13 +26,13 @@ public class LevelSelector extends JPanel implements ActionListener
 		title.setFont(font);
 		title.setBounds(5, 5, 960, 50);
 		Levels lvls = new Levels();
-		ImageButton back = new ImageButton("Back", "back_up.png");
-		back.setPressedImage("back_down.png");
+		ImageButton back = new ImageButton("", "home_press.png");
+		back.setPressedImage("home_unpress.png");
 		add(title);
 		add(new Levels());
 		add(back);
 		back.addActionListener(this);
-		back.setBounds(780, 450, 150, 55);
+		back.setBounds(850, 440, 50, 50);
 	}
 	public void actionPerformed(ActionEvent e) {
 		app.setContentPane(app.home);

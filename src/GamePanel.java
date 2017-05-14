@@ -19,12 +19,15 @@ public class GamePanel extends JPanel {
 		setLayout(null);
 		game.setBackground(new Color(60, 60, 80));
 		setSize(960, 540);	
-		game.setBounds(0, 0, 960, 400);
+		game.setBounds(0, 0, 960 - 200, 400);
 		info.setBounds(0, 400, 480, 140);
 		notepad.setBounds(480, 400, 480, 140);
+		HelpPanel hp = new HelpPanel();
+		hp.setBounds(960 - 200, 0, 200, 540);
 		add(game);
 		add(notepad);
 		add(info);
+		add(hp);
 	}
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);
