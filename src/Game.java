@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 public class Game extends JPanel {
 	private double rotate;
 	public static final int GROUND_HEIGHT = 150;
-	
+	private boolean left;
 	private PhysicsDash app;
 	private LevelMap map;
 	protected Player player;
@@ -40,6 +40,7 @@ public class Game extends JPanel {
 			System.exit(1);
 		}
 	}
+	
 	public void makeEnemy(Graphics g, int x, int y) {
 		//this is actually hella laggy :(
 		rotate += 0.1;
@@ -62,7 +63,7 @@ public class Game extends JPanel {
 		if(playHit.intersects(enemy1Hit)) {
 			app.charName = "dead";
 			app.getMyImage();
-			player.character = app.character;
+			Player.character = app.character;
 			player.velY = -5;
 			LevelMap.stepOn = false;
 		}
@@ -98,7 +99,11 @@ public class Game extends JPanel {
 		//enemy generation
 		for(int i = 0; i < app.xEnemy1.size(); i++) {
 			makeEnemy(g, app.xEnemy1.get(i), app.yEnemy1.get(i));
-			app.xEnemy1.set(i, app.xEnemy1.get(i) - 1);
+			if(app.xEnemy1.get(i) < 0 + (int)(Math.random() * 500))
+				left = false;
+			if(app.xEnemy1.get(i) > LevelMap.width * 60 - (int)(Math.random() * 500))
+				left = true;
+			app.xEnemy1.set(i, left ? app.xEnemy1.get(i) - 1 : app.xEnemy1.get(i) + 1);
 		}
 		
 	}

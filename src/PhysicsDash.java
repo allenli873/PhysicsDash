@@ -24,7 +24,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 	protected int level, maxLevel, frameAt;
 	//statistic variables
 	protected int numJumps;
-	
+	protected ArrayList<Tile> checkpoints;
 	protected String charName, deathText;
 	protected Image character;
 	protected List<Integer> xEnemy1, yEnemy1;
@@ -53,7 +53,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 		instructions = new Instructions(this);
 		game = new GamePanel(this);
 		home = new HomeScreen(this);
-		dead = new Dead(this);
+		dead = new Dead(this, game.game.player);
 		
 		//sets the content pane
 		setContentPane(home);

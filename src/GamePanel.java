@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel {
 	
 	private PhysicsDash app;
-	private Game game;
+	protected Game game;
 	private Notepad notepad;
 	private InfoPanel info;
 	public boolean onCheckpoint;

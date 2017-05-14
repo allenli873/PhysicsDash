@@ -9,10 +9,10 @@ public class Player implements KeyListener {
 	public static final float PPM = 120; //ppm is how many pixels represent one meter
 	//field variables
 	private PhysicsDash app;
-	protected Image character;
-	public boolean jumped = false;
+	public static Image character;
+	public boolean jumped;
 	protected boolean left, right;
-	protected float x, y;
+	public static float x, y;
 	protected int w, h;
 	
 	private float step = 1/60f;
@@ -50,8 +50,13 @@ public class Player implements KeyListener {
 		if(Math.abs(velX) < 0.02)
 			velX = 0;
 		
-		if(y > map.levelHeight)
+		if(y > map.levelHeight) {
 			app.playerDies();
+			if(InfoPanel.flying) {
+				LevelMap.checkpointsCompleted--;
+			}
+		}
+		
 		if(Math.abs(velX) < 0.02)
 			velX = 0;
 		x += velX * step * PPM;

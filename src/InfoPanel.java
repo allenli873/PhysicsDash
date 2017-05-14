@@ -13,15 +13,17 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 	private PhysicsDash app;
 	private Player player;
 	private JLabel vx, vy, px, py, gw, a;	
-	private JLabel v, dy, dx;
+	private JLabel v, height;
 	public JTextField velX, velY, posX, posY, gapWidth, angle;
-	public JTextField vel, deltaX, deltaY;
+	public JTextField vel, hei;
 	public JButton submit;
+	public static boolean flying;
 	
 	public InfoPanel(PhysicsDash p, Player c) {
 		app = p;
 		player = c;
 		setSize(490, 140);
+		flying = false;
 		vx = new JLabel("Vel X:");
 		vy = new JLabel("Vel Y:");
 		px = new JLabel("Pos X:");
@@ -29,9 +31,7 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 		gw = new JLabel("Gap Width:");
 		a = new JLabel("Angle:");
 		v = new JLabel("Velocity:");
-		dy = new JLabel("Disp. X");
-		dx = new JLabel("Disp. Y");
-		
+		height = new JLabel("Jump Height:");
 				
 		velX = new JTextField("0.0", 5);
 		velY = new JTextField("0.0", 5);
@@ -40,8 +40,7 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 		gapWidth = new JTextField("0.0", 6);
 		angle = new JTextField("0.0", 8);
 		vel = new JTextField("0.0", 5);
-		deltaX = new JTextField("0.0", 5);
-		deltaY = new JTextField("0.0", 5);
+		hei = new JTextField("0.0", 5);
 		submit = new JButton("Done");
 		
 		velX.setEnabled(false);
@@ -50,6 +49,7 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 		posY.setEnabled(false);
 		gapWidth.setEnabled(false);
 		angle.setEnabled(false);
+		hei.setEnabled(false);
 		submit.setEnabled(false);
 		reset();
 		
@@ -69,10 +69,8 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 		add(angle);
 		add(v);
 		add(vel);
-		add(dx);
-		add(deltaX);
-		add(dy);
-		add(deltaY);
+		add(height);
+		add(hei);
 		add(submit);
 	}
 	
@@ -97,6 +95,8 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 		app.game.onCheckpoint = false;
 		app.game.checkpointJump = true;
 		player.jumped = true;
+		flying = true;
+		LevelMap.checkpointsCompleted++;
 		requestFocusInWindow();
 	}
 	

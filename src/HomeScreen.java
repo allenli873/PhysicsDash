@@ -12,8 +12,10 @@ import javax.swing.JPanel;
 public class HomeScreen extends JPanel implements ActionListener {
 	//field variables
 	private PhysicsDash app;
+	private Image up, down;
 	private Image logo;
-	private JButton play, instructions, credits;
+	
+	private ImageButton play, instructions, credits;
 	//constructor
 	public HomeScreen(PhysicsDash app) {
 		//initialize PhysicsDash obj
@@ -26,6 +28,7 @@ public class HomeScreen extends JPanel implements ActionListener {
 		app.getMyImage();
 		app.charName = "deltVdeltT";
 		logo = app.character;
+		
 		int width = 400;
 		int height = 275;
 		//container panel
@@ -34,9 +37,16 @@ public class HomeScreen extends JPanel implements ActionListener {
 		container.setLayout(new GridLayout(0, 1, 0, 30));
 		container.setBounds((app.WIDTH - width)/2, 60 + (app.HEIGHT - height)/2, width, height);
 		//selecting the different options for panels on home screen
-		play = new JButton("Play");
-		instructions = new JButton("Instructions");
-		credits = new JButton("Credits");
+		
+		play = new ImageButton("Play", "red_up.png");
+		instructions = new ImageButton("Instructions", "background_up.png");
+		credits = new ImageButton("Credits", "green_up.png");
+		play.setColor(new Color(0, 180, 255));
+		instructions.setColor(new Color(0, 180, 255));
+		credits.setColor(new Color(0, 180, 255));
+		play.setPressedImage("red_down.png");
+		instructions.setPressedImage("background_down.png");
+		credits.setPressedImage("green_down.png");
 		play.addActionListener(this);
 		instructions.addActionListener(this);
 		credits.addActionListener(this);
@@ -48,6 +58,8 @@ public class HomeScreen extends JPanel implements ActionListener {
 		add(container);
 		
 	}
+
+	
 	//sees which button is selected
 	public void actionPerformed(ActionEvent e) {
 		String text = e.getActionCommand();

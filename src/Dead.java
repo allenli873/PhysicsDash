@@ -20,21 +20,21 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 	protected static String currentText;
 	protected static int frame;
 	//delay before text starts going
-	private final int DELAY = 12;
+	private final int DELAY = 16;
 	//width and height of the level
 	private final int LETTER_WIDTH = 18;
 	private final int LETTER_HEIGHT = 22;
 	//the frame I allow the user to do something
-	private final int ALLOW_ACTION = 50;
-	
+	private final int ALLOW_ACTION = 75;
+	private Player player;
 	private Color homeColor;
 	private Color tryColor;
-	
-	public Dead(PhysicsDash p) {
+	public Dead(PhysicsDash p, Player player) {
+		this.player = player;
 		currentText = "";
 		frame = 0;
 		app = p;
-		timer = new Timer(75, this);
+		timer = new Timer(75 / 2, this);
 		setSize(960, 540);
 		setBackground(Color.BLACK);
 		homeColor = Color.WHITE;
@@ -98,6 +98,19 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 					app.setContentPane(app.game);
 					Game.dying = false;
 					LevelMap.stepOn = true;
+					app.charName = "deltVdeltT";
+					app.getMyImage();
+					Player.character = app.character;
+					if(LevelMap.checkpointsCompleted <= 0) {
+						LevelMap.checkpointsCompleted = 0;
+						Player.x = LevelMap.initPosX;
+						Player.y = LevelMap.initPosY;
+					} else {
+						Tile tile = app.checkpoints.get(LevelMap.checkpointsCompleted - 1);
+						Player.x = tile.bounds.x;
+						Player.y = tile.bounds.y;
+					}
+					
 				}
 		}
 	}
@@ -110,10 +123,16 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 		int x = e.getX();
 		int y = e.getY();
 		homeColor = Color.WHITE;
+		tryColor = Color.WHITE;
 		if(frame > ALLOW_ACTION)
 			if(x > 275 && x < 4 * LETTER_WIDTH + 275) 
 				if(y > 450 - LETTER_HEIGHT && y < 450)
 					homeColor = Color.YELLOW;
+		if(frame > ALLOW_ACTION)
+			if(x > 575 && x < 9 * LETTER_WIDTH + 575)
+				if(y > 450 - LETTER_HEIGHT && y < 450)
+					tryColor = Color.YELLOW;
+				
 	}
 	
 }
