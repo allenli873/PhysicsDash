@@ -35,7 +35,7 @@ public class Game extends JPanel {
 		xEnemy1 = new ArrayList<Integer>();
 		yEnemy1 = new ArrayList<Integer>();
 		map = new LevelMap(player, app.level, this, app);
-		help = new GuidePanel();
+		help = new GuidePanel(app);
 		addKeyListener(player);
 	}
 	
@@ -77,9 +77,11 @@ public class Game extends JPanel {
 		if(app.game.onCheckpoint) {
 			help.draw(g, app.game.info);
 			app.game.info.setBackground(Color.GREEN);
+			addMouseListener(help);
 		}
 		else {
 			app.game.info.setBackground(Color.GRAY);
+			removeMouseListener(help);
 		}
 		
 		Graphics2D g2d = (Graphics2D) g;
