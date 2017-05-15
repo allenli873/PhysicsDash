@@ -74,7 +74,13 @@ public class Game extends JPanel {
 		//requests focus in window
 		if(shouldRequest) requestFocusInWindow();
 		
-		help.draw(g, app.game.info);
+		if(app.game.onCheckpoint) {
+			help.draw(g, app.game.info);
+			app.game.info.setBackground(Color.GREEN);
+		}
+		else {
+			app.game.info.setBackground(Color.GRAY);
+		}
 		
 		Graphics2D g2d = (Graphics2D) g;
 		

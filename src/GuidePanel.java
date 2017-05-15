@@ -15,7 +15,7 @@ public class GuidePanel {
 	public GuidePanel() {
 		loadImages();
 		border = 2;
-		width = 175;
+		width = 200;
 		height = 90;
 		x = (PhysicsDash.WIDTH - width)/2;		
 		y = 70;
@@ -35,9 +35,9 @@ public class GuidePanel {
 		g.fillRect(x, y, width, height);
 		g.drawImage(background, x + border, y + border, width - 2*border, height - 2*border, null);
 		g.drawString("Checkpoint", x + 6, y + 14);
-		g.drawString("Try to jump across!", x + 6, y + 39);
-		g.drawString("Calculate the inital velocity required, given:", x + 6, y + 39);
-		g.drawString("Angle = " + info.angle.getText() + ", ", x + 6, y + 39);
+		g.drawString("Try to jump across!", x + 6, y + 35);
+		g.drawString("Calculate the inital velocity required:", x + 6, y + 56);
+		g.drawString("Angle = " + info.angle.getText() + ", ", x + 6, y + 77);
 	}
 	
 	
