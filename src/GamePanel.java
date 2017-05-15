@@ -8,9 +8,10 @@ public class GamePanel extends JPanel {
 	private PhysicsDash app;
 	protected Game game;
 	private Notepad notepad;
-	private InfoPanel info;
+	public InfoPanel info;
 	public boolean onCheckpoint;
 	public boolean checkpointJump;
+	
 	public GamePanel(PhysicsDash p) {
 		app = p;
 		game = new Game(p);
@@ -19,15 +20,12 @@ public class GamePanel extends JPanel {
 		setLayout(null);
 		game.setBackground(new Color(60, 60, 80));
 		setSize(960, 540);	
-		game.setBounds(0, 0, 960 - 200, 400);
+		game.setBounds(0, 0, 960, 400);
 		info.setBounds(0, 400, 480, 140);
 		notepad.setBounds(480, 400, 480, 140);
-		HelpPanel hp = new HelpPanel();
-		hp.setBounds(960 - 200, 0, 200, 540);
 		add(game);
 		add(notepad);
 		add(info);
-		add(hp);
 	}
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -37,7 +35,7 @@ public class GamePanel extends JPanel {
 	        info.vel.setText(String.format("%.2f", Math.hypot(game.player.velX, game.player.velY)));
 	        info.posX.setText(String.format("%.2f", game.player.x / Player.PPM));
 	        info.posY.setText(String.format("%.2f", game.player.y / Player.PPM));
-        }
+        } 
 	}
 	public void landed() {
 		checkpointJump = false;

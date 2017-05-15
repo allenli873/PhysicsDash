@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class Game extends JPanel {
+	
 	private double rotate;
 	public static final int GROUND_HEIGHT = 150;
 	private boolean left;
@@ -19,6 +20,7 @@ public class Game extends JPanel {
 	private LevelMap map;
 	protected List<Integer> xEnemy1, yEnemy1;
 	protected Player player;
+	private GuidePanel help;
 	public boolean shouldRequest;
 	public static boolean dying;
 	private int freezeX, freezeY;
@@ -33,17 +35,8 @@ public class Game extends JPanel {
 		xEnemy1 = new ArrayList<Integer>();
 		yEnemy1 = new ArrayList<Integer>();
 		map = new LevelMap(player, app.level, this, app);
-		loadGround();
+		help = new GuidePanel(app);
 		addKeyListener(player);
-	}
-	//fancy ground
-	public void loadGround() {
-		try {
-			ground = ImageIO.read(new File("basic128.png"));
-		} catch (IOException e) {
-			System.err.println("Error: could not find ground image");
-			System.exit(1);
-		}
 	}
 	
 	public void makeEnemy(Graphics g, int x, int y) {
@@ -73,7 +66,6 @@ public class Game extends JPanel {
 			player.velX = 0;
 			LevelMap.stepOn = false;
 		}
-//			app.playerDies();
 	}
 	
 	//the paintComponent
@@ -81,6 +73,16 @@ public class Game extends JPanel {
 		super.paintComponent(g);
 		//requests focus in window
 		if(shouldRequest) requestFocusInWindow();
+		
+		if(app.game.onCheckpoint) {
+			help.draw(g, app.game.info);
+			app.game.info.setBackground(Color.GREEN);
+			addMouseListener(help);
+		}
+		else {
+			app.game.info.setBackground(Color.GRAY);
+			removeMouseListener(help);
+		}
 		
 		Graphics2D g2d = (Graphics2D) g;
 		
@@ -111,6 +113,7 @@ public class Game extends JPanel {
 				left = true;
 			xEnemy1.set(i, left ? xEnemy1.get(i) - 1 : xEnemy1.get(i) + 1);
 		}
+		
 		
 	}
 }

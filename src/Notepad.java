@@ -8,6 +8,7 @@ public class Notepad extends JPanel {
 		setSize(480, 140);
 		setLayout(new BorderLayout());
 		JTextArea j = new JTextArea(10, 40);
+		j.setText("Notepad: ");
 		add(j);
 	}
 }

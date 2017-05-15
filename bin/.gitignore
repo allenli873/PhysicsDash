@@ -8,6 +8,7 @@
 /Game.class
 /GamePanel.class
 /HelpPanel.class
+<<<<<<< HEAD
 /HomeScreen.class
 /ImageButton.class
 /InfoPanel.class
@@ -20,3 +21,7 @@
 /PhysicsDash.class
 /Player.class
 /Tile.class
+=======
+/GuidePanel.class
+/HelpPanel$Content.class
+>>>>>>> origin/master
