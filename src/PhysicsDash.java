@@ -19,8 +19,8 @@ public class PhysicsDash extends JFrame implements ActionListener
 	//field variables
 	public static Timer loop;
 	protected final int PPM = 120;
-	protected final int WIDTH = 960;
-	protected final int HEIGHT = 540;
+	protected final static int WIDTH = 960;
+	protected final static int HEIGHT = 540;
 	protected int level, maxLevel, frameAt;
 	//statistic variables
 	protected int numJumps;
