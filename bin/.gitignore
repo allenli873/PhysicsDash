@@ -7,8 +7,8 @@
 /Enemy1Tri2.class
 /Game.class
 /GamePanel.class
+/GuidePanel.class
 /HelpPanel.class
-<<<<<<< HEAD
 /HomeScreen.class
 /ImageButton.class
 /InfoPanel.class
@@ -21,7 +21,3 @@
 /PhysicsDash.class
 /Player.class
 /Tile.class
-=======
-/GuidePanel.class
-/HelpPanel$Content.class
->>>>>>> origin/master

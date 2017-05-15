@@ -15,8 +15,9 @@ public class GuidePanel implements MouseListener {
 	private Image background, up, down, help_image;
 	private int border;
 	private int x, y, width, height;
-	
+	private boolean hpOpen;
 	public GuidePanel(PhysicsDash p) {
+		hpOpen = false;
 		app = p;
 		loadImages();
 		border = 2;
@@ -56,9 +57,8 @@ public class GuidePanel implements MouseListener {
 		int ey = e.getY();
 		if(ex > x + 50 && ex < x + 150 && ey > y + 72 && ey < y + 87) {
 			hp.nextHint();
-			hp.repaint();
 			hp.setVisible(true);
-			hp.repaint();
+			hpOpen = true;
 		}
 	}
 	
@@ -71,6 +71,9 @@ public class GuidePanel implements MouseListener {
 		g.drawString("Calculate the inital velocity required", x + 6, y + 56);
 		g.drawString("with the info at the bottom left", x + 6, y + 77);
 		g.drawImage(help_image, x + 50, y + 72, 100, 15, null);
+		
+		if(hpOpen) 
+			hp.repaint();
 	}
 
 	@Override

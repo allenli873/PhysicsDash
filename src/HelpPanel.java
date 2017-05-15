@@ -21,11 +21,6 @@ public class HelpPanel extends JFrame {
 		setBounds(300, 300, 400, 400);
 		app = p;
 		y = 20;
-		lines = new String[] {
-				"First, split up your velocity into its x and y components.",
-				"V<sub>x</sub> = Vcos(θ), V<sub>y</sub> = sin(θ)"
-		};
-		lines = new String[]{};
 		try {
 			img = ImageIO.read(new File("background_down.png"));
 			hint1 = ImageIO.read(new File("hint1.png"));
