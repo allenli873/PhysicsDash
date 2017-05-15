@@ -82,10 +82,8 @@ public class PhysicsDash extends JFrame implements ActionListener
 		setContentPane(dead);
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		
-//		System.out.println(frameAt);
-		frameAt++;
+	public void actionPerformed(ActionEvent e) 
+	{
 		repaint();
 	}
 	

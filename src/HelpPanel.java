@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 public class HelpPanel extends JFrame {
 	
 	private PhysicsDash app;
-	private Image img;
+	private Image img, hint1;
 	private ImageButton next;
 	private int y;
 	private String[] lines;
@@ -28,6 +28,7 @@ public class HelpPanel extends JFrame {
 		lines = new String[]{};
 		try {
 			img = ImageIO.read(new File("background_down.png"));
+			hint1 = ImageIO.read(new File("hint1.png"));
 		}
 		catch(IOException e) {
 			e.printStackTrace();
@@ -37,6 +38,7 @@ public class HelpPanel extends JFrame {
 	public void paint(Graphics g) {
 		super.paint(g);
 		g.drawImage(img, 0, 0, 400, 400, this);
+		g.drawImage(hint1, 20, 20, this);
 	}
 	
 	public void addText(String text) {
