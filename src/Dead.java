@@ -13,7 +13,6 @@ import java.io.IOException;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
 public class Dead extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
 	protected static Timer timer;
 	protected PhysicsDash app;

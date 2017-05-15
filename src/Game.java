@@ -105,9 +105,9 @@ public class Game extends JPanel {
 		//enemy generation
 		for(int i = 0; i < xEnemy1.size(); i++) {
 			makeEnemy(g, xEnemy1.get(i), yEnemy1.get(i));
-			if(xEnemy1.get(i) < 0 + (int)(Math.random() * 500))
+			if(xEnemy1.get(i) < 0 + (int)(Math.random() * LevelMap.width * 15))
 				left = false;
-			if(xEnemy1.get(i) > LevelMap.width * 60 - (int)(Math.random() * 500))
+			if(xEnemy1.get(i) > LevelMap.width * 60 - (int)(Math.random() * LevelMap.width * 15))
 				left = true;
 			xEnemy1.set(i, left ? xEnemy1.get(i) - 1 : xEnemy1.get(i) + 1);
 		}
