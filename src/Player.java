@@ -88,7 +88,7 @@ public class Player implements KeyListener {
 		if(code == KeyEvent.VK_RIGHT && !app.game.onCheckpoint)
 			right = true;
 		int c = e.getKeyCode();
-		if(c == KeyEvent.VK_UP && !app.game.onCheckpoint) {
+		if((c == KeyEvent.VK_UP || c == KeyEvent.VK_W) && !app.game.onCheckpoint) {
 			if(!jumped) {
 				app.numJumps++;
 				velY = -4;

@@ -49,18 +49,21 @@ public class Instructions extends JPanel implements ActionListener {
 				e.printStackTrace();
 			}
 		}
-//		try {
-//			done = ImageIO.read(new File("Instructions/done.png"));
-//		}
-//		catch(IOException e) { 
-//			e.printStackTrace();
-//		}
+		try {
+			done = ImageIO.read(new File("Instructions/done.png"));
+		}
+		catch(IOException e) { 
+			e.printStackTrace();
+		}
 	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		//draw appropriate image based on index slideNum, take up whole screen
-		g.drawImage(images[slideNum], 0, 0, getWidth(), getHeight(), this);
+		if(lastSlide)
+			g.drawImage(done, 0, 0, getWidth(), getHeight(), this);
+		else
+			g.drawImage(images[slideNum], 0, 0, getWidth(), getHeight(), this);
 	}
 	
 	public void actionPerformed(ActionEvent e) {

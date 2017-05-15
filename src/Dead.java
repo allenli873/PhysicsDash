@@ -21,7 +21,7 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 	protected static int frame;
 	//delay before text starts going
 	private final int DELAY = 16;
-	//width and height of the level
+	//width and height of the letter
 	private final int LETTER_WIDTH = 18;
 	private final int LETTER_HEIGHT = 22;
 	//the frame I allow the user to do something

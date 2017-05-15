@@ -74,7 +74,7 @@ public class Game extends JPanel {
 		//requests focus in window
 		if(shouldRequest) requestFocusInWindow();
 		
-		help.draw(g);
+		help.draw(g, app.game.info);
 		
 		Graphics2D g2d = (Graphics2D) g;
 		

@@ -8,7 +8,7 @@ public class GamePanel extends JPanel {
 	private PhysicsDash app;
 	protected Game game;
 	private Notepad notepad;
-	private InfoPanel info;
+	public InfoPanel info;
 	public boolean onCheckpoint;
 	public boolean checkpointJump;
 	
