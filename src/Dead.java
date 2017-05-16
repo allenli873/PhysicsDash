@@ -28,9 +28,12 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 	private Player player;
 	private Color homeColor;
 	private Color tryColor;
+	private static String msg;
+	
 	public Dead(PhysicsDash p, Player player) {
 		this.player = player;
 		currentText = "";
+		msg = "";
 		frame = 0;
 		app = p;
 		timer = new Timer(75 / 2, this);
@@ -41,8 +44,9 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 		addMouseListener(this);
 		addMouseMotionListener(this);
 	}
-	public static void dead() {
+	public static void dead(String _msg) {
 		currentText = "";
+		msg = _msg;
 		frame = 0;
 		timer.start();
 	}
@@ -60,7 +64,12 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 		g.setColor(Color.WHITE);
 		g.setFont(gameOver);
 		g.drawString("GAME OVER", 300, 100);
+		gameOver = gameOver.deriveFont(30f);
+		g.setFont(gameOver);
+		g.setColor(Color.RED);
+		g.drawString(msg, 375, 160);
 		gameOver = gameOver.deriveFont(40f);
+		g.setColor(Color.WHITE);
 		g.setFont(gameOver);
 		g.drawString(currentText, 50, 300);
 		if(frame > ALLOW_ACTION) {
@@ -110,6 +119,7 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 						Player.x = tile.bounds.x;
 						Player.y = tile.bounds.y;
 					}
+					app.game.game.map.checkNum = LevelMap.checkpointsCompleted;
 					
 				}
 		}

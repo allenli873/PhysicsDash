@@ -17,11 +17,13 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 	public JTextField velX, velY, posX, posY, gapWidth, angle;
 	public JTextField vel, hei;
 	public JButton submit;
+	public long shouldDie;
 	public static boolean flying;
 	
 	public InfoPanel(PhysicsDash p, Player c) {
 		app = p;
 		player = c;
+		shouldDie = 0;
 		setSize(490, 140);
 		flying = false;
 		vx = new JLabel("Vel X:");
@@ -67,10 +69,10 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 		add(gapWidth);
 		add(a);
 		add(angle);
-		add(v);
-		add(vel);
 		add(height);
 		add(hei);
+		add(v);
+		add(vel);
 		add(submit);
 	}
 	
@@ -88,7 +90,8 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 		String aText = angle.getText();
 		aText = aText.substring(0, aText.indexOf(' '));
 		System.out.println(aText);
-		float mag = Float.parseFloat(vel.getText()) - 0.1f;
+		float velInput = Float.parseFloat(vel.getText());
+		float mag = velInput - 0.1f;
 		float theta = (float) Math.toRadians(Double.parseDouble(aText));
 		player.velX = mag * (float) Math.cos(theta);
 		player.velY = -mag * (float) Math.sin(theta);
@@ -96,7 +99,15 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 		app.game.checkpointJump = true;
 		player.jumped = true;
 		flying = true;
-		LevelMap.checkpointsCompleted++;
+		double gw = Double.parseDouble(gapWidth.getText());
+		float answer = (float) Math.sqrt((9.8*gw)/(2*Math.sin(theta)*Math.cos(theta)));
+		System.out.println(answer);
+		if(Math.abs(velInput - answer) > 0.1) {
+			shouldDie = System.currentTimeMillis();
+		}
+		else {
+			LevelMap.checkpointsCompleted++;
+		}
 		requestFocusInWindow();
 	}
 	

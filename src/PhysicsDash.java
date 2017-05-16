@@ -67,7 +67,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 		}
 	}
 	
-	public void playerDies() {
+	public void playerDies(String msg) {
 		//put something actual here later
 		Scanner in = null;
 		try {
@@ -78,7 +78,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 		}
 		deathText = in.nextLine();
 		//starts the death animating
-		Dead.dead();
+		Dead.dead(msg);
 		setContentPane(dead);
 	}
 	

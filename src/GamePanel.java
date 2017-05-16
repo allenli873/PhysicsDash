@@ -35,7 +35,11 @@ public class GamePanel extends JPanel {
 	        info.vel.setText(String.format("%.2f", Math.hypot(game.player.velX, game.player.velY)));
 	        info.posX.setText(String.format("%.2f", game.player.x / Player.PPM));
 	        info.posY.setText(String.format("%.2f", game.player.y / Player.PPM));
-        } 
+        }
+        if(info.shouldDie > 0 && ((!onCheckpoint && !info.flying) || System.currentTimeMillis() - info.shouldDie > 5000)) {
+        	app.playerDies("Incorrect answer");
+        	info.shouldDie = 0;
+        }
 	}
 	public void landed() {
 		checkpointJump = false;
@@ -52,7 +56,7 @@ public class GamePanel extends JPanel {
 			info.velX.setText("0.0");
 			info.velY.setText("0.0");
 			info.vel.setText("0.0");
-			info.gapWidth.setText("4.0m");
+			info.gapWidth.setText("2.5");
 			info.angle.setText("30 deg");
 		}
         onCheckpoint = true;
