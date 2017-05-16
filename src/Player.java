@@ -93,11 +93,11 @@ public class Player implements KeyListener {
 			right = true;
 		int c = e.getKeyCode();
 		if((c == KeyEvent.VK_UP || c == KeyEvent.VK_W) && !app.game.onCheckpoint) {
-			if(!jumped) {
+//			if(!jumped) {
 				app.numJumps++;
 				velY = -4;
 				jumped = true;
-			}
+//			}
 		}
 	}
 	//stops moving when key is released

@@ -41,7 +41,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 		setVisible(true);
 		//initialize things
 		level = 1;
-		maxLevel = 2;
+		maxLevel = 1;
 		charName = "deltVdeltT";
 		character = null;
 		//makes class objects

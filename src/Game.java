@@ -129,9 +129,13 @@ public class Game extends JPanel {
 		}
 		
 		Graphics2D g2d = (Graphics2D) g;
-		
-		g2d.scale(400.0/540.0, 400.0/540.0);
-		if(player.y < map.levelHeight - 720 && !dying)
+		if(!app.game.onCheckpoint)
+			g2d.scale(400.0/540.0, 400.0/540.0);
+		else
+			g2d.scale(200.0/540.0, 200.0/540.0);
+		if(app.game.onCheckpoint)
+			g2d.translate((int)  (app.WIDTH - player.w)/2 - player.x, 0);
+		else if(player.y < map.levelHeight - 720 && !dying)
 			g2d.translate((int)  (app.WIDTH - player.w)/2 - player.x, (int) (app.HEIGHT - player.h)/2 - player.y);
 		else if(!dying) {
 			dying = true;
@@ -140,9 +144,8 @@ public class Game extends JPanel {
 			g2d.translate(freezeX, freezeY);
 			player.velX = 0;
 		}
-		else {
+		else
 			g2d.translate(freezeX, freezeY);
-		}
 	    
 		g.setColor(new Color(175, 60, 0));
 		//player generation
@@ -150,17 +153,12 @@ public class Game extends JPanel {
 		map.draw(g);
 		//enemy generation
 		//for extra random fun
-		int stopPoint = (int)(Math.random() * LevelMap.width * 15);
 		for(int i = 0; i < xEnemy1.size(); i++) {
 			makeEnemy(g, xEnemy1.get(i), yEnemy1.get(i));
-			if(xEnemy1.get(i) < 0 + stopPoint) {
+			if(xEnemy1.get(i) < 0) 
 				left = false;
-				stopPoint = (int)(Math.random() * LevelMap.width * 15);
-			}
-			if(xEnemy1.get(i) > LevelMap.width * 60 - stopPoint) {
+			if(xEnemy1.get(i) > LevelMap.width * 60) 
 				left = true;
-				stopPoint = (int)(Math.random() * LevelMap.width * 15);
-			}
 			xEnemy1.set(i, left ? xEnemy1.get(i) - 1 : xEnemy1.get(i) + 1);
 		}
 		

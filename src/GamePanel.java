@@ -56,8 +56,9 @@ public class GamePanel extends JPanel {
 			info.velX.setText("0.0");
 			info.velY.setText("0.0");
 			info.vel.setText("0.0");
-			info.gapWidth.setText("2.5");
-			info.angle.setText("30 deg");
+			info.gapWidth.setText("" + app.checkpoints.get(LevelMap.checkpointsCompleted).gapWidth);
+			info.angle.setText(app.checkpoints.get(LevelMap.checkpointsCompleted).angle + " deg");
+			info.hei.setText("" + app.checkpoints.get(LevelMap.checkpointsCompleted).gapHeight);
 		}
         onCheckpoint = true;
 	}

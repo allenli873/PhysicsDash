@@ -68,6 +68,7 @@ public class LevelMap {
 			Arrays.fill(map[i], new Tile());
 		}
 		int row = -1;
+		int numChecks = 0;
 		while(in.hasNextLine())
 		{ 
 			row++;
@@ -115,6 +116,27 @@ public class LevelMap {
 		for(int col = 0; col < width; col++) {
 			for(int r = 0; r < height; r++) {
 				if(map[r][col].type == Tile.CHECKPOINT) {
+					//aight so this is the part where our pandas eat oreos
+					if(app.maxLevel == 1 && numChecks == 0) {
+						map[r][col].gapWidth = 2.5f;
+						map[r][col].angle = 30f;
+					}
+					
+					if(app.maxLevel == 1 && numChecks == 1) {
+						map[r][col].gapWidth = 3.5f;
+						map[r][col].angle = 45f;
+					}
+					
+					if(app.maxLevel == 1 && numChecks == 2) {
+						map[r][col].gapWidth = 6.0f;
+						map[r][col].angle = 55f;
+					}
+					if(app.maxLevel == 2 && numChecks == 0) {
+						map[r][col].gapWidth = 2.5f;
+						map[r][col].angle = 75f;
+						map[r][col].gapHeight = 3f;
+						numChecks++;
+					}
 					app.checkpoints.add(map[r][col]);
 				}
 			}
