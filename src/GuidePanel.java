@@ -20,9 +20,9 @@ public class GuidePanel implements MouseListener {
 		hpOpen = false;
 		app = p;
 		loadImages();
-		border = 2;
+		border = 3;
 		width = 200;
-		height = 90;
+		height = 125;
 		x = (PhysicsDash.WIDTH - width)/2;		
 		y = 70;
 		hp = new HelpPanel(app);
@@ -43,23 +43,20 @@ public class GuidePanel implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		int ex = e.getX();
 		int ey = e.getY();
-		if(ex > x + 50 && ex < x + 150 && ey > y + 72 && ey < y + 87)
+		if(ex > x + 50 && ex < x + 150 && ey > y + 100 && ey < y + 115)
 			help_image = down;
 	}
 	public void mouseReleased(MouseEvent e) {
 		int ex = e.getX();
 		int ey = e.getY();
-		if(ex > x + 50 && ex < x + 150 && ey > y + 72 && ey < y + 87)
+		if(ex > x + 50 && ex < x + 150 && ey > y + 100 && ey < y + 115) {
 			help_image = up;
+			hp.setVisible(true);
+			hp.repaint();
+		}
 	}
 	public void mouseClicked(MouseEvent e) {
-		int ex = e.getX();
-		int ey = e.getY();
-		if(ex > x + 50 && ex < x + 150 && ey > y + 72 && ey < y + 87) {
-			hp.nextHint();
-			hp.setVisible(true);
-			hpOpen = true;
-		}
+
 	}
 	
 	public void draw(Graphics g, InfoPanel info) {
@@ -70,10 +67,8 @@ public class GuidePanel implements MouseListener {
 		g.drawString("Try to jump across!", x + 6, y + 35);
 		g.drawString("Calculate the inital velocity required", x + 6, y + 56);
 		g.drawString("with the info at the bottom left", x + 6, y + 77);
-		g.drawImage(help_image, x + 50, y + 72, 100, 15, null);
-		
-		if(hpOpen) 
-			hp.repaint();
+		g.drawImage(help_image, x + 50, y + 100, 100, 15, null);
+		g.drawString("Hints", x + 85, y + 110);
 	}
 
 	@Override

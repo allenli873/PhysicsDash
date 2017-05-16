@@ -33,7 +33,7 @@ public class Game extends JPanel {
 	public static final int GROUND_HEIGHT = 150;
 	private boolean left;
 	private PhysicsDash app;
-	private LevelMap map;
+	public LevelMap map;
 	
 	
 	protected Player player;
@@ -102,7 +102,7 @@ public class Game extends JPanel {
 		Rectangle playHit = new Rectangle((int)player.x, (int)player.y, player.w, player.h);
 		Rectangle enemy1Hit = new Rectangle(x, y, WIDTH, HEIGHT * 3 / 2);
 		//checks if player hitbox hits the enemy hitbox
-		if(playHit.intersects(enemy1Hit)) {
+		if(playHit.intersects(enemy1Hit) && !app.charName.equals("dead")) {
 			app.charName = "dead";
 			app.getMyImage();
 			Player.character = app.character;

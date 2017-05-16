@@ -52,7 +52,10 @@ public class Player implements KeyListener {
 			velX = 0;
 		
 		if(y > map.levelHeight) {
-			app.playerDies();
+			if(app.charName.equals("dead")) {
+				app.playerDies("You hit an enemy!");
+			}
+			else app.playerDies("Out of bounds");
 			if(InfoPanel.flying) {
 				LevelMap.checkpointsCompleted--;
 			}
