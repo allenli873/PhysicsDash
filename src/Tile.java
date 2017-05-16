@@ -9,6 +9,7 @@ public class Tile {
 	public static final int NONE = 0;
 	public static final int BRICK = 1;
 	public static final int CHECKPOINT = 2;
+	public static final int FINISH = 3;
 	protected float gapWidth;
 	protected float gapHeight;
 	protected float angle;
@@ -25,6 +26,6 @@ public class Tile {
 		bounds.height = HEIGHT;
 	}
 	public String toString() {
-		return "Gap Width: " + gapWidth;
+		return "Gap Width: " + gapWidth + "Height: " + gapHeight + "Angle: " + angle;
 	}
 }

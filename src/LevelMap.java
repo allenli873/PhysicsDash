@@ -18,7 +18,7 @@ public class LevelMap {
 	private Tile[][] map; //2d array of tiles makes up the map
 	private Graphics g;
 	private Game game;
-	private Image brick, cpImage;
+	private Image brick, cpImage, fImage;
 	private Player player;
 	private PhysicsDash app;
 	public static int width, height;
@@ -41,6 +41,7 @@ public class LevelMap {
 		try {
 			brick = ImageIO.read(new File("basic128.png"));
 			cpImage = ImageIO.read(new File("flag.png"));
+			fImage = ImageIO.read(new File("finish.png"));
 		}
 		catch(IOException e) { 
 			e.printStackTrace();
@@ -68,7 +69,7 @@ public class LevelMap {
 			Arrays.fill(map[i], new Tile());
 		}
 		int row = -1;
-		int numChecks = 0;
+		app.numChecks = 0;
 		while(in.hasNextLine())
 		{ 
 			row++;
@@ -108,6 +109,11 @@ public class LevelMap {
 					game.xEnemy1.add(col * Tile.WIDTH);
 					game.yEnemy1.add(row * Tile.HEIGHT + 35);
 				}
+				else if(cTile == 'F') 
+				{
+					t.type = Tile.FINISH;
+					app.finishX = col * Tile.WIDTH;
+				}
 				map[row][col] = t;
 				//assign image type based on char
 			}
@@ -117,26 +123,31 @@ public class LevelMap {
 			for(int r = 0; r < height; r++) {
 				if(map[r][col].type == Tile.CHECKPOINT) {
 					//aight so this is the part where our pandas eat oreos
-					if(app.maxLevel == 1 && numChecks == 0) {
+					if(app.maxLevel == 1 && app.numChecks == 0) {
 						map[r][col].gapWidth = 2.5f;
 						map[r][col].angle = 30f;
 					}
 					
-					if(app.maxLevel == 1 && numChecks == 1) {
+					if(app.maxLevel == 1 && app.numChecks == 1) {
 						map[r][col].gapWidth = 3.5f;
 						map[r][col].angle = 45f;
 					}
 					
-					if(app.maxLevel == 1 && numChecks == 2) {
+					if(app.maxLevel == 1 && app.numChecks == 2) {
 						map[r][col].gapWidth = 6.0f;
 						map[r][col].angle = 55f;
 					}
-					if(app.maxLevel == 2 && numChecks == 0) {
+					if(app.maxLevel == 1 && app.numChecks == 3) {
+						map[r][col].gapWidth = 3.0f;
+						map[r][col].angle = 65f;
+					}
+					if(app.maxLevel == 2 && app.numChecks == 3) {
 						map[r][col].gapWidth = 2.5f;
 						map[r][col].angle = 75f;
 						map[r][col].gapHeight = 3f;
-						numChecks++;
+						
 					}
+					app.numChecks++;
 					app.checkpoints.add(map[r][col]);
 				}
 			}
@@ -221,6 +232,9 @@ public class LevelMap {
 				}
 				if(map[row][col].type == Tile.CHECKPOINT) {
 					i = cpImage;
+				}
+				if(map[row][col].type == Tile.FINISH) {
+					i = fImage;
 				}
 				g.drawImage(i, col * Tile.WIDTH, row * Tile.HEIGHT, Tile.WIDTH, Tile.HEIGHT, null);
 			}

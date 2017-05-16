@@ -98,17 +98,19 @@ public class Game extends JPanel {
 		g2d.rotate(-rotate, x + LEG_GAP + LEG_WIDTH * 3 / 2, y + HEIGHT_LEG / 2);
 		
 		y = y - PPM / 3;
-		//hit detection
-		Rectangle playHit = new Rectangle((int)player.x, (int)player.y, player.w, player.h);
-		Rectangle enemy1Hit = new Rectangle(x, y, WIDTH, HEIGHT * 3 / 2);
-		//checks if player hitbox hits the enemy hitbox
-		if(playHit.intersects(enemy1Hit) && !app.charName.equals("dead")) {
-			app.charName = "dead";
-			app.getMyImage();
-			Player.character = app.character;
-			player.velY = -5;
-			player.velX = 0;
-			LevelMap.stepOn = false;
+		if(!app.game.onCheckpoint) {
+			//hit detection
+			Rectangle playHit = new Rectangle((int)player.x, (int)player.y, player.w, player.h);
+			Rectangle enemy1Hit = new Rectangle(x, y, WIDTH, HEIGHT * 3 / 2);
+			//checks if player hitbox hits the enemy hitbox
+			if(playHit.intersects(enemy1Hit) && !app.charName.equals("dead")) {
+				app.charName = "dead";
+				app.getMyImage();
+				Player.character = app.character;
+				player.velY = -5;
+				player.velX = 0;
+				LevelMap.stepOn = false;
+			}
 		}
 	}
 	

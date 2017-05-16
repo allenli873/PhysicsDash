@@ -56,11 +56,10 @@ public class Player implements KeyListener {
 				app.playerDies("You hit an enemy!");
 			}
 			else app.playerDies("Out of bounds");
-			if(InfoPanel.flying) {
-				LevelMap.checkpointsCompleted--;
-			}
 		}
-		
+		if(x >= app.finishX) {
+			System.exit(0);
+		}
 		if(Math.abs(velX) < 0.02)
 			velX = 0;
 		x += velX * step * PPM;
@@ -93,11 +92,11 @@ public class Player implements KeyListener {
 			right = true;
 		int c = e.getKeyCode();
 		if((c == KeyEvent.VK_UP || c == KeyEvent.VK_W) && !app.game.onCheckpoint) {
-//			if(!jumped) {
+			if(!jumped) {
 				app.numJumps++;
 				velY = -4;
 				jumped = true;
-//			}
+			}
 		}
 	}
 	//stops moving when key is released

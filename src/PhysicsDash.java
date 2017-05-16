@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -23,10 +22,12 @@ public class PhysicsDash extends JFrame implements ActionListener
 	protected final static int HEIGHT = 540;
 	protected int level, maxLevel, frameAt;
 	//statistic variables
+	protected int numChecks;
 	protected int numJumps;
 	protected ArrayList<Tile> checkpoints;
 	protected String charName, deathText;
 	protected Image character;
+	protected int finishX;
 	//the panels of our game
 	public JPanel home, credits, levelSelect, instructions, dead;
 	public GamePanel game;
@@ -34,7 +35,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 	public PhysicsDash()
 	{
 		numJumps = 0;
-		
+		numChecks = 0;
 		//sets size to 960x540
 		setSize(WIDTH, HEIGHT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
