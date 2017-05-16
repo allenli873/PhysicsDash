@@ -68,7 +68,6 @@ public class Game extends JPanel {
 		Graphics2D g2d = (Graphics2D)g;
 //		Enemy1 e1 = new Enemy1(x, y, app);
 //		e1.draw(g);
-		
 		//main body
 		y = y - PPM / 3;
 		xVals = new int[]{x, x + PPM / 4, x + PPM / 2};
@@ -96,7 +95,7 @@ public class Game extends JPanel {
 		yVals = new int[]{y + HEIGHT_LEG, y, y + HEIGHT_LEG};
 		xValsR = new int[]{x + LEG_WIDTH + LEG_GAP, x + LEG_WIDTH + (LEG_WIDTH / 2) + LEG_GAP, x + 2 * LEG_WIDTH + LEG_GAP};
 		g.fillPolygon(xValsR, yVals, 3);
-		g2d.rotate(-rotate, x + LEG_GAP + LEG_WIDTH * 3 / 2, y + HEIGHT / 2);
+		g2d.rotate(-rotate, x + LEG_GAP + LEG_WIDTH * 3 / 2, y + HEIGHT_LEG / 2);
 		
 		y = y - PPM / 3;
 		//hit detection
@@ -150,12 +149,18 @@ public class Game extends JPanel {
 		player.draw(g, map);
 		map.draw(g);
 		//enemy generation
+		//for extra random fun
+		int stopPoint = (int)(Math.random() * LevelMap.width * 15);
 		for(int i = 0; i < xEnemy1.size(); i++) {
 			makeEnemy(g, xEnemy1.get(i), yEnemy1.get(i));
-			if(xEnemy1.get(i) < 0 + (int)(Math.random() * LevelMap.width * 15))
+			if(xEnemy1.get(i) < 0 + stopPoint) {
 				left = false;
-			if(xEnemy1.get(i) > LevelMap.width * 60 - (int)(Math.random() * LevelMap.width * 15))
+				stopPoint = (int)(Math.random() * LevelMap.width * 15);
+			}
+			if(xEnemy1.get(i) > LevelMap.width * 60 - stopPoint) {
 				left = true;
+				stopPoint = (int)(Math.random() * LevelMap.width * 15);
+			}
 			xEnemy1.set(i, left ? xEnemy1.get(i) - 1 : xEnemy1.get(i) + 1);
 		}
 		
