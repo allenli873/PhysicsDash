@@ -22,6 +22,7 @@ public class Player implements KeyListener {
 	//constructor
 	public Player(PhysicsDash p) {
 		app = p;
+		app.charName = "deltVdeltT";
 		app.getMyImage();
 		character = app.character;
 		w = (int) PPM/2; //dimensions are 1/2m = 1/2ppm pixels

@@ -12,24 +12,50 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class Game extends JPanel {
-	
+	//Pixels per meter
+	private final int PPM = 120;
+	//Width and height of the character
+	protected final int HEIGHT = PPM / 3;
+	protected final int WIDTH = PPM / 2;
+	//xy pos of the character
+	protected int x, y;
+	protected String temp;
+	//the face of the character
+	protected Image lenny;
+	//x and y values of the current character
+	protected int[] xVals, yVals, xValsL, xValsR;
+	//list of enemies with their x and y values
+	protected List<Integer> xEnemy1, yEnemy1;
+	//height of the leg
+	protected final int HEIGHT_LEG = PPM / 8;
+	//gap between the legs
+	private final int LEG_GAP = PPM / 12;
+	//width of the legs
+	protected final int LEG_WIDTH = PPM / 6;
 	private double rotate;
 	public static final int GROUND_HEIGHT = 150;
 	private boolean left;
 	private PhysicsDash app;
 	private LevelMap map;
-	protected List<Integer> xEnemy1, yEnemy1;
+	
+	
 	protected Player player;
 	private GuidePanel help;
 	public boolean shouldRequest;
 	public static boolean dying;
 	private int freezeX, freezeY;
 	
+	
 	private Image ground;
 	//constructor
 	public Game(PhysicsDash p) {
-		rotate = 0;
 		app = p;
+		app.charName = "lenny";
+		app.getMyImage();
+		lenny = app.character;
+		app.charName = temp;
+		rotate = 0;
+		
 		shouldRequest = true;
 		player = new Player(app);
 		xEnemy1 = new ArrayList<Integer>();
@@ -43,20 +69,42 @@ public class Game extends JPanel {
 		//this is actually hella laggy :(
 		rotate += 0.1;
 		Graphics2D g2d = (Graphics2D)g;
-		Enemy1 e1 = new Enemy1(x, y, app);
-		e1.draw(g);
-		Enemy1Tri e1t = new Enemy1Tri(x, y);
-		g2d.rotate(rotate, (e1t.x) + e1t.LEG_WIDTH / 2, e1t.y + e1t.HEIGHT / 2);
-		e1t.draw(g);
-		g2d.rotate(-rotate, (e1t.x) + e1t.LEG_WIDTH / 2, e1t.y + e1t.HEIGHT / 2);
-		Enemy1Tri2 e1t2 = new Enemy1Tri2(x, y);
-		g2d.rotate(rotate, e1t2.x + Enemy1Tri.LEG_GAP + e1t2.LEG_WIDTH * 3 / 2, e1t2.y + e1t2.HEIGHT / 2);
-		e1t2.draw(g);
-		g2d.rotate(-rotate, e1t2.x + Enemy1Tri.LEG_GAP + e1t2.LEG_WIDTH * 3 / 2, e1t2.y + e1t2.HEIGHT / 2);
+//		Enemy1 e1 = new Enemy1(x, y, app);
+//		e1.draw(g);
 		
-		//crude hit detection for now
+		//main body
+		y = y - PPM / 3;
+		xVals = new int[]{x, x + PPM / 4, x + PPM / 2};
+		yVals = new int[]{y + HEIGHT, y, y + HEIGHT};
+		Color c = new Color(139, 69, 19);
+		g.setColor(c);
+		g.fillPolygon(xVals, yVals, 3);
+		g.setColor(Color.BLACK);
+		//draws the image
+		g.drawImage(lenny, x, y - 15, PPM / 2, HEIGHT + 20, null);
+		
+		y = y + PPM / 3;
+		
+//		Enemy1Tri e1t = new Enemy1Tri(x, y);
+		g2d.rotate(rotate, x + LEG_WIDTH / 2, y + HEIGHT_LEG / 2);
+		//left leg
+		g.setColor(Color.BLACK);
+		xValsL = new int[]{x, x + LEG_WIDTH / 2, x + LEG_WIDTH};
+		yVals = new int[]{y + HEIGHT_LEG, y, y + HEIGHT_LEG};
+		g.fillPolygon(xValsL, yVals, 3);
+		g2d.rotate(-rotate, x + LEG_WIDTH / 2, y + HEIGHT_LEG / 2);
+//		Enemy1Tri2 e1t2 = new Enemy1Tri2(x, y);
+		
+		g2d.rotate(rotate, x + LEG_GAP + LEG_WIDTH * 3 / 2, y + HEIGHT_LEG / 2);
+		yVals = new int[]{y + HEIGHT_LEG, y, y + HEIGHT_LEG};
+		xValsR = new int[]{x + LEG_WIDTH + LEG_GAP, x + LEG_WIDTH + (LEG_WIDTH / 2) + LEG_GAP, x + 2 * LEG_WIDTH + LEG_GAP};
+		g.fillPolygon(xValsR, yVals, 3);
+		g2d.rotate(-rotate, x + LEG_GAP + LEG_WIDTH * 3 / 2, y + HEIGHT / 2);
+		
+		y = y - PPM / 3;
+		//hit detection
 		Rectangle playHit = new Rectangle((int)player.x, (int)player.y, player.w, player.h);
-		Rectangle enemy1Hit = new Rectangle(e1.x, e1.y, e1.WIDTH, e1.HEIGHT * 3 / 2);
+		Rectangle enemy1Hit = new Rectangle(x, y, WIDTH, HEIGHT * 3 / 2);
 		//checks if player hitbox hits the enemy hitbox
 		if(playHit.intersects(enemy1Hit)) {
 			app.charName = "dead";
