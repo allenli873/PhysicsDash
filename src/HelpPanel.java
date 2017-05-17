@@ -8,9 +8,9 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-public class HelpPanel extends JFrame implements ActionListener {
+public class HelpPanel extends JPanel implements ActionListener {
 	
 	private PhysicsDash app;
 	private Image img;
@@ -21,8 +21,6 @@ public class HelpPanel extends JFrame implements ActionListener {
 	private int hintNum;
 	
 	public HelpPanel(PhysicsDash p) {
-		super("Help");
-		setBounds(300, 300, 600, 700);
 		setLayout(null);
 		app = p;
 		y = 20;
@@ -41,16 +39,16 @@ public class HelpPanel extends JFrame implements ActionListener {
 		next.setBounds(200, 600, 200, 50);
 		next.addActionListener(this);
 		add(next);
-		addWindowListener(new WindowResponse());
+		
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		nextHint();
 		repaint();
+		nextHint();
 	}
 	
-	public void paint(Graphics g) {
-		super.paint(g);
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		g.drawImage(img, 0, 0, 600, 700, this);
 		g.drawString("HINTS", 20, 60);
 		int y = 70;
@@ -66,9 +64,5 @@ public class HelpPanel extends JFrame implements ActionListener {
 			hintNum = hints.length;
 	}
 
-	class WindowResponse extends WindowAdapter {
-		public void windowClosing(WindowEvent e) {
-			nextHint();
-		}
-	}
+	
 }

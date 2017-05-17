@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 public class GuidePanel implements MouseListener {
 	
 	private PhysicsDash app;
-	private HelpPanel hp;
+	private HelpFrame hp;
 	private Image background, up, down, help_image;
 	private int border;
 	private int x, y, width, height;
@@ -25,7 +25,7 @@ public class GuidePanel implements MouseListener {
 		height = 125;
 		x = (PhysicsDash.WIDTH - width)/3;		
 		y = 50;
-		hp = new HelpPanel(app);
+		hp = new HelpFrame(app);
 	}
 	
 	public void loadImages() {

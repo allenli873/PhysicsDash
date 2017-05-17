@@ -64,7 +64,7 @@ public class Game extends JPanel {
 	
 	public void makeEnemy(Graphics g, int x, int y) {
 		//this is actually hella laggy :(
-		rotate += 0.01;
+		
 		Graphics2D g2d = (Graphics2D)g;
 //		Enemy1 e1 = new Enemy1(x, y, app);
 //		e1.draw(g);
@@ -154,7 +154,7 @@ public class Game extends JPanel {
 		player.draw(g, map);
 		map.draw(g);
 		//enemy generation
-		//for extra random fun
+		rotate += 0.1;
 		for(int i = 0; i < xEnemy1.size(); i++) {
 			makeEnemy(g, xEnemy1.get(i), yEnemy1.get(i));
 			if(xEnemy1.get(i) < 0) 
