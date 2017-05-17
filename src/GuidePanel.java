@@ -23,8 +23,8 @@ public class GuidePanel implements MouseListener {
 		border = 3;
 		width = 200;
 		height = 125;
-		x = (PhysicsDash.WIDTH - width)/2;		
-		y = 70;
+		x = (PhysicsDash.WIDTH - width)/3;		
+		y = 50;
 		hp = new HelpPanel(app);
 	}
 	

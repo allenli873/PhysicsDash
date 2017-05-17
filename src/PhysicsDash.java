@@ -29,7 +29,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 	protected Image character;
 	protected int finishX;
 	//the panels of our game
-	public JPanel home, credits, levelSelect, instructions, dead;
+	public JPanel home, credits, levelSelect, instructions, dead, levelComplete;
 	public GamePanel game;
 	//constructor
 	public PhysicsDash()
@@ -52,6 +52,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 		game = new GamePanel(this);
 		home = new HomeScreen(this);
 		dead = new Dead(this, game.game.player);
+		levelComplete = new LevelComplete(this, game.game.player);
 		
 		//sets the content pane
 		setContentPane(home);
@@ -68,6 +69,10 @@ public class PhysicsDash extends JFrame implements ActionListener
 		}
 	}
 	
+	public void levelComplete() {
+		LevelComplete.completed("Level " + level + " Completed!");
+		setContentPane(levelComplete);
+	}
 	public void playerDies(String msg) {
 		//put something actual here later
 		Scanner in = null;

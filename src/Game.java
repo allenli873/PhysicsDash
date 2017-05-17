@@ -64,7 +64,7 @@ public class Game extends JPanel {
 	
 	public void makeEnemy(Graphics g, int x, int y) {
 		//this is actually hella laggy :(
-		rotate += 0.1;
+		rotate += 0.01;
 		Graphics2D g2d = (Graphics2D)g;
 //		Enemy1 e1 = new Enemy1(x, y, app);
 //		e1.draw(g);
@@ -131,7 +131,7 @@ public class Game extends JPanel {
 		}
 		
 		Graphics2D g2d = (Graphics2D) g;
-		if(!app.game.onCheckpoint)
+		if(!app.game.onCheckpoint && !InfoPanel.flying)
 			g2d.scale(400.0/540.0, 400.0/540.0);
 		else
 			g2d.scale(200.0/540.0, 200.0/540.0);
@@ -159,7 +159,7 @@ public class Game extends JPanel {
 			makeEnemy(g, xEnemy1.get(i), yEnemy1.get(i));
 			if(xEnemy1.get(i) < 0) 
 				left = false;
-			if(xEnemy1.get(i) > LevelMap.width * 60) 
+			if(xEnemy1.get(i) > LevelMap.width * 120) 
 				left = true;
 			xEnemy1.set(i, left ? xEnemy1.get(i) - 1 : xEnemy1.get(i) + 1);
 		}

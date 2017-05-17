@@ -36,10 +36,10 @@ public class GamePanel extends JPanel {
 	        info.posX.setText(String.format("%.2f", game.player.x / Player.PPM));
 	        info.posY.setText(String.format("%.2f", game.player.y / Player.PPM));
         }
-        if(info.shouldDie > 0 && ((!onCheckpoint && !info.flying) || System.currentTimeMillis() - info.shouldDie > 5000)) {
-        	app.playerDies("Incorrect answer");
-        	info.shouldDie = 0;
-        }
+//        if(info.shouldDie > 0 && ((!onCheckpoint && !info.flying) || System.currentTimeMillis() - info.shouldDie > 5000)) {
+//        	app.playerDies("Incorrect answer");
+//        	info.shouldDie = 0;
+//        }
 	}
 	public void landed() {
 		checkpointJump = false;

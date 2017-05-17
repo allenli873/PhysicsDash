@@ -103,6 +103,8 @@ public class LevelMap {
 				else if(cTile == '|') 
 				{
 					t.type = Tile.CHECKPOINT;
+					t.bounds.width = 60 * 4;
+					t.bounds.height = 60 * 4;
 				}
 				else if(cTile == '1') 
 				{
@@ -141,11 +143,47 @@ public class LevelMap {
 						map[r][col].gapWidth = 3.0f;
 						map[r][col].angle = 65f;
 					}
-					if(app.maxLevel == 2 && app.numChecks == 3) {
+					if(app.maxLevel == 2 && app.numChecks == 0) {
 						map[r][col].gapWidth = 2.5f;
 						map[r][col].angle = 75f;
 						map[r][col].gapHeight = 3f;
 						
+					}
+					if(app.maxLevel == 2 && app.numChecks == 1) {
+						map[r][col].gapWidth = 2.5f;
+						map[r][col].angle = 85f;
+						map[r][col].gapHeight = 1.5f;
+						
+					}
+					if(app.maxLevel == 2 && app.numChecks == 2) {
+						map[r][col].gapWidth = 8f;
+						map[r][col].angle = 70f;
+						map[r][col].gapHeight = 3.5f;
+					}
+					if(app.maxLevel == 2 && app.numChecks == 3) {
+						map[r][col].gapWidth = 7.5f;
+						map[r][col].angle = 75f;
+						map[r][col].gapHeight = 3.5f;
+					}
+					if(app.maxLevel == 3 && app.numChecks == 0) {
+						map[r][col].gapWidth = 3.5f;
+						map[r][col].angle = 30f;
+						map[r][col].gapHeight = -2.5f;
+					}
+					if(app.maxLevel == 3 && app.numChecks == 1) {
+						map[r][col].gapWidth = 3f;
+						map[r][col].angle = 75f;
+						map[r][col].gapHeight = -2.5f;
+					}
+					if(app.maxLevel == 3 && app.numChecks == 2) {
+						map[r][col].gapWidth = 4f;
+						map[r][col].angle = 60f;
+						map[r][col].gapHeight = -6.5f;
+					}
+					if(app.maxLevel == 3 && app.numChecks == 3) {
+						map[r][col].gapWidth = 45.5f;
+						map[r][col].angle = 5f;
+						map[r][col].gapHeight = -3.5f;
 					}
 					app.numChecks++;
 					app.checkpoints.add(map[r][col]);
@@ -219,6 +257,7 @@ public class LevelMap {
 					checkNum++;
 					app.game.checkpointHit();
 				}
+				
 			}
 		}
 	}

@@ -23,3 +23,5 @@
 /Tile.class
 /HelpPanel$WindowResponse.class
 /LineCounter.class
+/LevelComplete.class
+/LevelComplete$Crash.class

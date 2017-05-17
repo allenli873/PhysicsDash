@@ -47,7 +47,7 @@ public class LevelSelector extends JPanel implements ActionListener
 			//sets where the button panel is
 			setBounds((app.WIDTH - LEVELS_WIDTH)/2, 75, LEVELS_WIDTH, LEVELS_WIDTH);
 			//adds in buttons and their action listeners
-			for(int i = 0; i < 9; i++)
+			for(int i = 0; i < 3; i++)
 			{
 				ImageButton btn = new ImageButton(Integer.toString(i + 1), "background_up.png");
 				btn.setPressedImage("background_down.png");

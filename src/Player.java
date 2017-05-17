@@ -14,7 +14,6 @@ public class Player implements KeyListener {
 	protected boolean left, right;
 	public static float x, y;
 	protected int w, h;
-	
 	private float step = 1/60f;
 	public float velX = 0;
 	public float velY = 0;
@@ -36,7 +35,7 @@ public class Player implements KeyListener {
 
 		g.drawImage(character, (int) x, (int) y, w, h, null);
 		
-		//friction
+		//frictiong
 		if(velX - 0.02 != 0 && !jumped)
 		{
 			if(app.game.checkpointJump) {
@@ -47,18 +46,26 @@ public class Player implements KeyListener {
 				velX = velX < 0 ? velX + 0.02f : velX - 0.02f;
 			}
 		}
-		
+		boolean offBounds = false;
 		if(Math.abs(velX) < 0.02)
 			velX = 0;
-		
 		if(y > map.levelHeight) {
 			if(app.charName.equals("dead")) {
 				app.playerDies("You hit an enemy!");
 			}
-			else app.playerDies("Out of bounds");
+			else {
+				app.playerDies("Out of bounds");
+				offBounds = true;
+				InfoPanel.shouldDie = 0;
+			}
 		}
-		if(x >= app.finishX) {
-			System.exit(0);
+		if (InfoPanel.shouldDie > 0 && ((!app.game.onCheckpoint && !InfoPanel.flying) || System.currentTimeMillis() - InfoPanel.shouldDie > 5000 && offBounds == false)) {
+			app.playerDies("Incorrect answer");
+        	InfoPanel.shouldDie = 0;
+		}
+		
+		if(x >= app.finishX - 60) {
+			app.levelComplete();
 		}
 		if(Math.abs(velX) < 0.02)
 			velX = 0;

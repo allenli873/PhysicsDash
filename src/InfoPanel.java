@@ -17,7 +17,7 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 	public JTextField velX, velY, posX, posY, gapWidth, angle;
 	public JTextField vel, hei;
 	public JButton submit;
-	public long shouldDie;
+	public static long shouldDie;
 	public static boolean flying;
 	
 	public InfoPanel(PhysicsDash p, Player c) {

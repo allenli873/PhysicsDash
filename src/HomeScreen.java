@@ -63,8 +63,10 @@ public class HomeScreen extends JPanel implements ActionListener {
 	//sees which button is selected
 	public void actionPerformed(ActionEvent e) {
 		String text = e.getActionCommand();
-		if(text.equals("Play")) 
+		if(text.equals("Play")) {
+			app.levelSelect = new LevelSelector(app);
 			app.setContentPane(app.levelSelect);
+		}
 		
 		else if(text.equals("Instructions")) 
 			app.setContentPane(app.instructions);

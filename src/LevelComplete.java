@@ -13,9 +13,9 @@ import java.io.IOException;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
-public class Dead extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
+public class LevelComplete extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
 	protected static Timer timer;
-	protected PhysicsDash app;
+	protected static PhysicsDash app;
 	protected static String currentText;
 	protected static int frame;
 	//delay before text starts going
@@ -24,27 +24,31 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 	private final int LETTER_WIDTH = 18;
 	private final int LETTER_HEIGHT = 22;
 	//the frame I allow the user to do something
-	private final int ALLOW_ACTION = 75;
+	private final int ALLOW_ACTION = 30;
 	private Player player;
 	private Color homeColor;
 	private Color tryColor;
 	private static String msg;
 	
-	public Dead(PhysicsDash p, Player player) {
+	public LevelComplete(PhysicsDash p, Player player) {
 		this.player = player;
 		currentText = "";
 		msg = "";
 		frame = 0;
 		app = p;
+		
 		timer = new Timer(75 / 2, this);
 		setSize(960, 540);
-		setBackground(Color.BLACK);
-		homeColor = Color.WHITE;
-		tryColor = Color.WHITE;		
+		setBackground(Color.ORANGE);
+		homeColor = Color.BLUE;
+		tryColor = Color.BLUE;		
+		
 		addMouseListener(this);
 		addMouseMotionListener(this);
 	}
-	public static void dead(String _msg) {
+	public static void completed(String _msg) {
+		if(app.maxLevel != 3)
+			app.maxLevel++;
 		currentText = "";
 		msg = _msg;
 		frame = 0;
@@ -63,28 +67,18 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 		}
 		g.setColor(Color.WHITE);
 		g.setFont(gameOver);
-		g.drawString("GAME OVER", 300, 100);
-		gameOver = gameOver.deriveFont(30f);
-		g.setFont(gameOver);
-		g.setColor(Color.RED);
-		g.drawString(msg, 375, 160);
+		g.drawString(msg, 150, 100);
 		gameOver = gameOver.deriveFont(40f);
-		g.setColor(Color.WHITE);
 		g.setFont(gameOver);
-		g.drawString(currentText, 50, 300);
 		if(frame > ALLOW_ACTION) {
 			g.setColor(homeColor);
 			g.drawString("Home", 275, 450);
 			g.setColor(tryColor);
-			g.drawString("Try Again", 575, 450);
+			g.drawString("Next Level", 575, 450);
 		}
 	}
 	public void actionPerformed(ActionEvent e) {
-		requestFocusInWindow();
 		frame++;
-		if(frame >= DELAY && frame < app.deathText.length() + DELAY) {
-			currentText += app.deathText.charAt(frame - DELAY);
-		}
 	}
 	/*
 	 * Checks if clicked inside of home or try again
@@ -100,28 +94,17 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 					Game.dying = false;
 					LevelMap.stepOn = true;
 				}
-			//check if clicked inside of try again
-			if(x > 575 && x < 9 * LETTER_WIDTH + 575)
+			//check if clicked inside of next level
+			if(x > 575 && x < 10 * LETTER_WIDTH + 575)
 				if(y > 450 - LETTER_HEIGHT && y < 450) {
-					app.setContentPane(app.game);
-					
 					Game.dying = false;
 					LevelMap.stepOn = true;
 					app.charName = "deltVdeltT";
+					LevelMap.checkpointsCompleted = 0;
 					app.getMyImage();
-					Player.character = app.character;
-					player.velX = 0;
-					if(LevelMap.checkpointsCompleted <= 0) {
-						LevelMap.checkpointsCompleted = 0;
-						Player.x = LevelMap.initPosX;
-						Player.y = LevelMap.initPosY;
-					} else {
-						Tile tile = app.checkpoints.get(LevelMap.checkpointsCompleted - 1);
-						Player.x = tile.bounds.x;
-						Player.y = tile.bounds.y;
-					}
-					app.game.game.map.checkNum = LevelMap.checkpointsCompleted;
-					
+					app.level++;
+					app.game = new GamePanel(app);
+					app.setContentPane(app.game);
 				}
 		}
 	}
@@ -133,16 +116,16 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 	public void mouseMoved(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		homeColor = Color.WHITE;
-		tryColor = Color.WHITE;
+		homeColor = Color.BLUE;
+		tryColor = Color.BLUE;
 		if(frame > ALLOW_ACTION)
 			if(x > 275 && x < 4 * LETTER_WIDTH + 275) 
 				if(y > 450 - LETTER_HEIGHT && y < 450)
-					homeColor = Color.YELLOW;
+					homeColor = new Color(0, 0.8f, 1.0f);
 		if(frame > ALLOW_ACTION)
-			if(x > 575 && x < 9 * LETTER_WIDTH + 575)
+			if(x > 575 && x < 10 * LETTER_WIDTH + 575)
 				if(y > 450 - LETTER_HEIGHT && y < 450)
-					tryColor = Color.YELLOW;
+					tryColor = new Color(0, 0.8f, 1.0f);
 				
 	}
 	
