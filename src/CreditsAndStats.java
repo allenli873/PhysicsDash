@@ -67,6 +67,8 @@ public class CreditsAndStats extends JPanel implements ActionListener
 			g.setFont(new Font("Sans Serif", Font.PLAIN, 20));
 			g.drawString("Statistics:", 25, 40);
 			g.drawString("Times Jumped: " + app.numJumps, 25, 80);
+			g.drawString("Checkpoint Completed: " + PhysicsDash.totalChecks, 25, 110);
+			g.drawString("Levels Completed: " + (app.maxLevel - 1), 25, 140);
 		}
 		
 	}

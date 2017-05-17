@@ -89,7 +89,6 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 	public void actionPerformed(ActionEvent e) {
 		String aText = angle.getText();
 		aText = aText.substring(0, aText.indexOf(' '));
-		System.out.println(aText);
 		float velInput = Float.parseFloat(vel.getText());
 		float mag = velInput - 0.1f;
 		float theta = (float) Math.toRadians(Double.parseDouble(aText));
@@ -101,12 +100,12 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 		flying = true;
 		double gw = Double.parseDouble(gapWidth.getText());
 		float answer = (float) Math.sqrt((9.8*gw)/(2*Math.sin(theta)*Math.cos(theta)));
-		System.out.println(answer);
 		if(Math.abs(velInput - answer) > 0.1) {
 			shouldDie = System.currentTimeMillis();
 		}
 		else {
 			LevelMap.checkpointsCompleted++;
+			PhysicsDash.totalChecks++;
 		}
 		requestFocusInWindow();
 	}

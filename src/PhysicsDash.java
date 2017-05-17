@@ -24,6 +24,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 	//statistic variables
 	protected int numChecks;
 	protected int numJumps;
+	public static int totalChecks;
 	protected ArrayList<Tile> checkpoints;
 	protected String charName, deathText;
 	protected Image character;
@@ -34,6 +35,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 	//constructor
 	public PhysicsDash()
 	{
+		totalChecks = 0;
 		numJumps = 0;
 		numChecks = 0;
 		//sets size to 960x540
