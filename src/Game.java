@@ -140,9 +140,15 @@ public class Game extends JPanel {
 			freezeY = (int) ((app.HEIGHT - player.h)/2 - player.y);
 			g2d.translate(freezeX, freezeY);
 			player.velX = 0;
+			player.left = false;
+			player.right = false;
 		}
-		else
+		else {
 			g2d.translate(freezeX, freezeY);
+			player.velX = 0;
+			player.left = false;
+			player.right = false;
+		}
 	    
 		g.setColor(new Color(175, 60, 0));
 		//player generation

@@ -111,6 +111,9 @@ public class Dead extends JPanel implements ActionListener, MouseListener, Mouse
 					app.getMyImage();
 					Player.character = app.character;
 					player.velX = 0;
+					player.left = false;
+					player.right = false;
+					player.velY = 0;
 					if(LevelMap.checkpointsCompleted <= 0) {
 						LevelMap.checkpointsCompleted = 0;
 						Player.x = LevelMap.initPosX;

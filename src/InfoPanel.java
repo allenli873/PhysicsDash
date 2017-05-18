@@ -2,6 +2,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.InputMismatchException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -89,7 +90,12 @@ public class InfoPanel extends JPanel implements ActionListener, KeyListener {
 	public void actionPerformed(ActionEvent e) {
 		String aText = angle.getText();
 		aText = aText.substring(0, aText.indexOf(' '));
-		float velInput = Float.parseFloat(vel.getText());
+		float velInput = 0;
+		try {
+			velInput = Float.parseFloat(vel.getText());
+		} catch(InputMismatchException ex) {
+			return;
+		}
 		float mag = velInput - 0.1f;
 		float theta = (float) Math.toRadians(Double.parseDouble(aText));
 		player.velX = mag * (float) Math.cos(theta);
