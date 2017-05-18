@@ -24,6 +24,7 @@ public class PhysicsDash extends JFrame implements ActionListener
 	//statistic variables
 	protected int numChecks;
 	protected int numJumps;
+	public static boolean instructionsViewed;
 	public static int totalChecks;
 	protected ArrayList<Tile> checkpoints;
 	protected String charName, deathText;
@@ -44,15 +45,15 @@ public class PhysicsDash extends JFrame implements ActionListener
 		setVisible(true);
 		//initialize things
 		level = 1;
-		maxLevel = 1;
+		maxLevel = 3;
 		charName = "deltVdeltT";
 		character = null;
 		//makes class objects
 		credits = new CreditsAndStats(this);
 		levelSelect = new LevelSelector(this);
-		instructions = new Instructions(this);
 		game = new GamePanel(this);
 		home = new HomeScreen(this);
+		instructions = new Instructions(this, (HomeScreen) home); 
 		dead = new Dead(this, game.game.player);
 		levelComplete = new LevelComplete(this, game.game.player);
 		

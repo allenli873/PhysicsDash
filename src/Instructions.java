@@ -21,8 +21,9 @@ public class Instructions extends JPanel implements ActionListener {
 	private Image done;
 	private int slideNum;
 	private PhysicsDash app;
-
-	public Instructions(PhysicsDash p) {
+	private HomeScreen home;
+	public Instructions(PhysicsDash p, HomeScreen h) {
+		home = h;
 		app = p;
 		setSize(960, 540);
 		setBackground(new Color(255, 100, 0));
@@ -67,11 +68,13 @@ public class Instructions extends JPanel implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		home.feelsBad = false;
 		if(e.getActionCommand().equals("Finish")) {
+			PhysicsDash.instructionsViewed = true;
 			app.setContentPane(app.home);
-			lastSlide = false;
 			nextButton.setText("Next");
 			slideNum = 1;
+			lastSlide = false;
 		}
 		
 		if(e.getActionCommand().equals("Next")) {

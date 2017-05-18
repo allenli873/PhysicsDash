@@ -21,7 +21,7 @@ public class GuidePanel implements MouseListener {
 		app = p;
 		loadImages();
 		border = 3;
-		width = 200;
+		width = 250;
 		height = 125;
 		x = (PhysicsDash.WIDTH - width)/3;		
 		y = 50;

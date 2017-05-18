@@ -65,7 +65,17 @@ public class Player implements KeyListener {
 		}
 		
 		if(x >= app.finishX - 60) {
-			app.levelComplete();
+			if(!app.game.checkpointJump)
+				app.levelComplete();
+			else {
+				app.playerDies("Incorrect Answer");
+				offBounds = true;
+				InfoPanel.shouldDie = 0;
+				app.game.checkpointJump = false;
+				velX = 0;
+				velY = 0;
+				app.game.game.shouldRequest = true;
+			}
 		}
 		if(Math.abs(velX) < 0.02)
 			velX = 0;

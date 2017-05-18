@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -6,7 +7,6 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class HomeScreen extends JPanel implements ActionListener {
@@ -14,8 +14,9 @@ public class HomeScreen extends JPanel implements ActionListener {
 	private PhysicsDash app;
 	private Image up, down;
 	private Image logo;
+	public boolean feelsBad;
 	
-	private ImageButton play, instructions, credits;
+	protected ImageButton play, instructions, credits;
 	//constructor
 	public HomeScreen(PhysicsDash app) {
 		//initialize PhysicsDash obj
@@ -64,8 +65,12 @@ public class HomeScreen extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String text = e.getActionCommand();
 		if(text.equals("Play")) {
-			app.levelSelect = new LevelSelector(app);
-			app.setContentPane(app.levelSelect);
+			if(PhysicsDash.instructionsViewed) {
+				app.levelSelect = new LevelSelector(app);
+				app.setContentPane(app.levelSelect);
+				feelsBad = false;
+			} else 
+				feelsBad = true;
 		}
 		
 		else if(text.equals("Instructions")) 
@@ -79,6 +84,9 @@ public class HomeScreen extends JPanel implements ActionListener {
 		app.charName = "deltVdeltT";
 		app.getMyImage();
 		Image len = app.character;
+		g.setFont(new Font("Sans Serif", Font.BOLD, 20));
+		if(feelsBad)
+			g.drawString("Please read ALL of the instructions first!", 270, 175);
 		g.drawImage(len, 750, 250, app.PPM, app.PPM, null);
 		g.drawImage(logo, 163, 50, 634, 84, this);
 		Graphics2D g2d = (Graphics2D)g;

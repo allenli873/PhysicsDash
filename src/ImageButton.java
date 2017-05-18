@@ -53,6 +53,7 @@ public class ImageButton extends JButton implements MouseListener {
 		if(!en) {
 			tmp = Color.GRAY;
 			pressedImage = image;
+			hoveredImage = image;
 		}
 		else {
 			tmp = c;
@@ -76,6 +77,9 @@ public class ImageButton extends JButton implements MouseListener {
 	}
 	public void setPressedImage(String name) {
 		pressedImage = loadImage(name);
+	}
+	public void disablify() {
+		image = null;
 	}
 	
 	public Image loadImage(String name) {

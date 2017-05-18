@@ -16,7 +16,7 @@ public class Game extends JPanel {
 	protected final int WIDTH = PPM / 2;
 	//xy pos of the character
 	protected int x, y;
-	protected String temp;
+	protected String name;
 	//the face of the character
 	protected Image lenny;
 	//x and y values of the current character
@@ -50,7 +50,7 @@ public class Game extends JPanel {
 		app.charName = "lenny";
 		app.getMyImage();
 		lenny = app.character;
-		app.charName = temp;
+		app.charName = name;
 		rotate = 0;
 		
 		shouldRequest = true;
@@ -118,23 +118,18 @@ public class Game extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		//requests focus in window
-		if(shouldRequest) requestFocusInWindow();
+		if(shouldRequest) 
+			requestFocusInWindow();
 		
-		if(app.game.onCheckpoint) {
-			help.draw(g, app.game.info);
-			app.game.info.setBackground(Color.GREEN);
-			addMouseListener(help);
-		}
-		else {
-			app.game.info.setBackground(Color.GRAY);
-			removeMouseListener(help);
-		}
 		
 		Graphics2D g2d = (Graphics2D) g;
+		boolean isScaled = false;
 		if(!app.game.onCheckpoint && !InfoPanel.flying)
 			g2d.scale(400.0/540.0, 400.0/540.0);
-		else
+		else {
 			g2d.scale(200.0/540.0, 200.0/540.0);
+			isScaled = true;
+		}
 		if(app.game.onCheckpoint)
 			g2d.translate((int)  (app.WIDTH - player.w)/2 - player.x, 0);
 		else if(player.y < map.levelHeight - 720 && !dying)
@@ -163,7 +158,29 @@ public class Game extends JPanel {
 				left = true;
 			xEnemy1.set(i, left ? xEnemy1.get(i) - 1 : xEnemy1.get(i) + 1);
 		}
-		
-		
+		if(app.game.onCheckpoint)
+			g2d.translate((int)  -((app.WIDTH - player.w)/2 - player.x), 0);
+		else if(player.y < map.levelHeight - 720 && !dying)
+			g2d.translate((int)  -((app.WIDTH - player.w)/2 - player.x), (int) -((app.HEIGHT - player.h)/2 - player.y));
+		if(!isScaled)
+			g2d.scale(540.0/400.0, 540.0/400.0);
+		else {
+			g2d.scale(540.0/200.0, 540.0/200.0);
+			isScaled = true;
+		}
+		if(app.game.onCheckpoint) {
+			help.draw(g, app.game.info);
+			app.game.info.setBackground(Color.GREEN);
+			addMouseListener(help);
+		}
+		else {
+			app.game.info.setBackground(Color.GRAY);
+			removeMouseListener(help);
+		}
+	}
+	public void generateEnemies(int count) {
+		if(count == 0) {
+			
+		}
 	}
 }
